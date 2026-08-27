@@ -115,6 +115,15 @@
   .folder-contents h4{ font-family:'IBM Plex Mono', monospace; font-size:0.62rem; letter-spacing:0.12em; text-transform:uppercase; color: var(--folder-shadow); margin-bottom: 0.4rem; }
   .folder-contents p{ font-size: 0.9rem; color: var(--ink-soft); line-height:1.55; }
   .folder-contents .metric{ display:inline-block; margin-top: 0.9rem; font-family:'Fraunces', serif; font-style:italic; font-size:1rem; color: var(--stamp); }
+  .attachments{ display:flex; flex-wrap:wrap; gap:0.5rem; margin-top:1.1rem; }
+  .attachments a{
+    display:inline-flex; align-items:center; gap:0.4rem;
+    font-family:'IBM Plex Mono', monospace; font-size:0.68rem; letter-spacing:0.04em;
+    color: var(--ink-soft); text-decoration:none; border:1px solid var(--folder-shadow);
+    border-radius: 30px; padding:0.32rem 0.7rem 0.32rem 0.55rem; background: rgba(255,255,255,0.18);
+    transition: background 0.25s ease, color 0.25s ease, border-color 0.25s ease;
+  }
+  .attachments a:hover{ background: var(--ink); color: var(--paper); border-color: var(--ink); }
   .folder.open .folder-body{ box-shadow: 0 30px 55px -18px rgba(0,0,0,0.75), 0 2px 0 rgba(255,255,255,0.06) inset; }
 
   .approach{ padding: 6rem clamp(1.5rem, 6vw, 5rem) 7rem; position:relative; }
@@ -172,6 +181,14 @@
   #admin .existing-item button:hover{ background: var(--stamp); color: var(--paper); }
   #admin .toast{ margin-top:0.8rem; font-size:0.74rem; color: var(--gold-bright); font-family:'IBM Plex Mono', monospace; min-height:1em; }
   #admin .hint{ font-size:0.72rem; color:var(--muted); margin-top:1.6rem; line-height:1.5; }
+  #admin .attach-row{ display:flex; gap:0.4rem; margin-top:0.5rem; align-items:center; }
+  #admin .attach-row select{ background: rgba(255,255,255,0.04); border:1px solid var(--line); border-radius:6px; color:var(--paper); font-family:'IBM Plex Mono', monospace; font-size:0.72rem; padding:0.45rem 0.3rem; }
+  #admin .attach-row input{ flex:1; min-width:0; }
+  #admin .attach-row button{ padding:0.4rem 0.55rem; font-size:0.62rem; }
+  #admin .attach-list{ display:flex; flex-direction:column; gap:0.4rem; margin-top:0.7rem; }
+  #admin .attach-chip{ display:flex; justify-content:space-between; align-items:center; font-size:0.76rem; background:rgba(255,255,255,0.04); border:1px solid var(--line); border-radius:6px; padding:0.4rem 0.6rem; }
+  #admin .attach-chip button{ padding:0.15rem 0.5rem; font-size:0.58rem; border-color: var(--stamp); color: var(--stamp); }
+  #admin .attach-chip button:hover{ background: var(--stamp); color: var(--paper); }
 
   @media (max-width: 640px){
     .steps{ grid-template-columns: 1fr; }
@@ -274,6 +291,19 @@
   <label>Metric / result</label>
   <input id="f-metric" placeholder="e.g. Margin: +310bps">
 
+  <label>Attachments</label>
+  <div class="attach-row">
+    <select id="a-type">
+      <option value="pdf">PDF</option>
+      <option value="ppt">PPT</option>
+      <option value="url">Link</option>
+    </select>
+    <input id="a-label" placeholder="Label, e.g. Full report">
+    <input id="a-href" placeholder="files/case-05-report.pdf or https://...">
+    <button id="add-attachment">+</button>
+  </div>
+  <div class="attach-list" id="attach-list"></div>
+
   <div class="row">
     <button class="primary" id="add-case">Add to drawer</button>
     <button id="copy-code">Copy data as code</button>
@@ -282,7 +312,7 @@
 
   <div class="existing" id="existing-list"></div>
 
-  <p class="hint">This site is static — anything added here previews live but resets on reload. Click "Copy data as code" and paste the result over the CASES array in the file, then redeploy, to make it permanent.</p>
+  <p class="hint">This site is static — anything added here previews live but resets on reload. Click "Copy data as code" and paste the result over the CASES array in the file, then redeploy, to make it permanent.<br><br>For attachments: for a PDF/PPT you own, drop the file in a <b>/files</b> folder next to this HTML file when you deploy, and use a relative path like <code>files/case-05-report.pdf</code>. For anything hosted elsewhere (Drive, Notion, a live site), just paste the full URL as a "Link" instead.</p>
 </div>
 
 <script>
@@ -292,7 +322,12 @@
       peek:'CAC had outpaced LTV for three straight quarters — growth was funded, not earned.',
       pain:'Paid acquisition scaled faster than retention could support it; every new cohort paid back slower than the last.',
       fix:'Rebuilt the growth model around a retention-first flywheel, reallocating spend from acquisition to a first-90-days experience.',
-      metric:'CAC payback: 14mo → 6mo' },
+      metric:'CAC payback: 14mo → 6mo',
+      attachments:[
+        { type:'pdf', label:'Full report', href:'files/case-01-report.pdf' },
+        { type:'ppt', label:'Board deck', href:'files/case-01-deck.pptx' },
+        { type:'url', label:'Company site', href:'https://example.com' }
+      ] },
     { tab:'Case 02 / Fintech', no:'02', title:'Neobank / Deposits App', stamp:'Closed',
       peek:'Deposits were growing, but 70% of new users churned before their third month.',
       pain:'Onboarding optimized for account creation, not for the moment a user actually felt the product\u2019s value.',
@@ -317,6 +352,15 @@
     return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
   }
 
+  const TYPE_ICON = { pdf:'📄', ppt:'📊', url:'🔗' };
+
+  function renderAttachments(list){
+    if(!list || !list.length) return '';
+    return '<div class="attachments">' + list.map(a => `
+      <a href="${escapeHtml(a.href)}" target="_blank" rel="noopener">${TYPE_ICON[a.type]||'📎'} ${escapeHtml(a.label)}</a>
+    `).join('') + '</div>';
+  }
+
   function renderFolders(){
     track.innerHTML = CASES.map((c, i) => `
       <article class="folder" data-i="${i}">
@@ -335,6 +379,7 @@
             <h4>The Fix</h4>
             <p>${escapeHtml(c.fix)}</p>
             <span class="metric">${escapeHtml(c.metric)}</span>
+            ${renderAttachments(c.attachments)}
           </div>
         </div>
       </article>
@@ -456,6 +501,35 @@
     setTimeout(() => { if(t.textContent === msg) t.textContent = ''; }, 2200);
   }
 
+  // ---------- attachment builder (staged list for the case currently being added) ----------
+  let pendingAttachments = [];
+
+  function renderPendingAttachments(){
+    const list = document.getElementById('attach-list');
+    list.innerHTML = pendingAttachments.map((a,i) => `
+      <div class="attach-chip">
+        <span>${TYPE_ICON[a.type]||'📎'} ${escapeHtml(a.label)} — ${escapeHtml(a.href)}</span>
+        <button data-remove-attach="${i}">Remove</button>
+      </div>
+    `).join('');
+    list.querySelectorAll('button[data-remove-attach]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        pendingAttachments.splice(Number(btn.dataset.removeAttach), 1);
+        renderPendingAttachments();
+      });
+    });
+  }
+
+  document.getElementById('add-attachment').addEventListener('click', () => {
+    const label = document.getElementById('a-label').value.trim();
+    const href = document.getElementById('a-href').value.trim();
+    if(!label || !href){ toast('Attachment needs a label and a link/path.'); return; }
+    pendingAttachments.push({ type: document.getElementById('a-type').value, label, href });
+    document.getElementById('a-label').value = '';
+    document.getElementById('a-href').value = '';
+    renderPendingAttachments();
+  });
+
   document.getElementById('add-case').addEventListener('click', () => {
     const title = document.getElementById('f-title').value.trim();
     if(!title){ toast('Give it at least a title.'); return; }
@@ -467,11 +541,14 @@
       peek: document.getElementById('f-peek').value.trim(),
       pain: document.getElementById('f-pain').value.trim(),
       fix: document.getElementById('f-fix').value.trim(),
-      metric: document.getElementById('f-metric').value.trim()
+      metric: document.getElementById('f-metric').value.trim(),
+      attachments: pendingAttachments.slice()
     };
     CASES.push(next);
     renderFolders();
     ['f-tab','f-title','f-stamp','f-peek','f-pain','f-fix','f-metric'].forEach(id => document.getElementById(id).value = '');
+    pendingAttachments = [];
+    renderPendingAttachments();
     toast('Added — previewing live.');
   });
 
