@@ -73,11 +73,7 @@
   .hero h1 .line:nth-child(3) span{ animation-delay: 0.61s; }
   .hero p.sub{ margin-top: 2rem; max-width: 46ch; font-size: 1.08rem; color: var(--muted); font-weight:400; line-height:1.65; opacity:0; animation: rise 0.9s ease forwards 0.85s; }
 
-  .scroll-cue{ position:absolute; bottom: 2.6rem; left: clamp(1.5rem, 6vw, 5rem); display:flex; align-items:center; gap:0.7rem; opacity:0; animation: rise 0.9s ease forwards 1.15s; }
-  .scroll-cue .arrow{ width:34px; height:1px; background:var(--gold); position:relative; }
-  .scroll-cue .arrow::after{ content:''; position:absolute; right:0; top:-3px; width:7px; height:7px; border-right:1px solid var(--gold); border-bottom:1px solid var(--gold); transform:rotate(-45deg); animation: nudge 1.6s ease-in-out infinite; }
   @keyframes rise{ to{ opacity:1; transform:none; } }
-  @keyframes nudge{ 0%,100%{ transform:translateX(0) rotate(-45deg);} 50%{ transform:translateX(5px) rotate(-45deg);} }
 
   .rack-intro{ padding: 3rem clamp(1.5rem, 6vw, 5rem) 1rem; }
   .rack-intro h2{ font-family:'Fraunces', serif; font-weight:400; font-size: clamp(1.6rem, 3vw, 2.2rem); max-width: 30ch; }
@@ -218,20 +214,16 @@
   <section class="hero">
     <span class="label">Strategy Desk · Independent Practice</span>
     <h1>
-      <span class="line"><span>Every business has</span></span>
-      <span class="line"><span>a leak. I find <em>where</em> —</span></span>
-      <span class="line"><span>and draft the fix.</span></span>
+      <span class="line"><span>A working record of</span></span>
+      <span class="line"><span>company analysis —</span></span>
+      <span class="line"><span>reasoning shown <em>in full</em>.</span></span>
     </h1>
-    <p class="sub">A working case file of company teardowns: the pain point diagnosed, the fix proposed, and the reasoning shown in full — not just the slide.</p>
-    <div class="scroll-cue">
-      <span class="label" style="margin:0;">Scroll the drawer</span>
-      <div class="arrow"></div>
-    </div>
+    <p class="sub">Each file sets out the constraint identified, the mechanism behind it, and the fix proposed — with the assumptions and the numbers, not just the conclusion.</p>
   </section>
 
   <section class="rack-intro">
-    <span class="label">The Drawer</span>
-    <h2>Four files, open for review. Drag or scroll sideways — click a folder to read it.</h2>
+    <span class="label">Case Record</span>
+    <h2><span id="rackCount">00</span> files on record. Scroll to review each.</h2>
   </section>
 
   <section id="rack">
@@ -240,7 +232,7 @@
 
   <section class="approach">
     <span class="label">Method</span>
-    <h2>The same three moves, on every file in the drawer.</h2>
+    <h2>The same three moves, on every file in the record.</h2>
     <div class="steps" id="steps">
       <div class="step">
         <span class="num">01</span>
@@ -261,7 +253,7 @@
   </section>
 
   <footer id="footer">
-    <h2>Have a company worth <em>tearing down</em>?</h2>
+    <h2>Available to review a <em>new case</em>.</h2>
     <div class="foot-right">
       <a class="mail" href="mailto:shouryast.1004@gmail.com">shouryast.1004@gmail.com →</a>
       <span class="fine-print">Strategy Desk · Hyderabad · Est. 2026</span>
@@ -299,20 +291,20 @@
       <option value="url">Link</option>
     </select>
     <input id="a-label" placeholder="Label, e.g. Full report">
-    <input id="a-href" placeholder="files/case-05-report.pdf or https://...">
+    <input id="a-href" placeholder="files/case-05/report.pdf or https://...">
     <button id="add-attachment">+</button>
   </div>
   <div class="attach-list" id="attach-list"></div>
 
   <div class="row">
-    <button class="primary" id="add-case">Add to drawer</button>
+    <button class="primary" id="add-case">Add to record</button>
     <button id="copy-code">Copy data as code</button>
   </div>
   <div class="toast" id="toast"></div>
 
   <div class="existing" id="existing-list"></div>
 
-  <p class="hint">This site is static — anything added here previews live but resets on reload. Click "Copy data as code" and paste the result over the CASES array in the file, then redeploy, to make it permanent.<br><br>For attachments: for a PDF/PPT you own, drop the file in a <b>/files</b> folder next to this HTML file when you deploy, and use a relative path like <code>files/case-05-report.pdf</code>. For anything hosted elsewhere (Drive, Notion, a live site), just paste the full URL as a "Link" instead.</p>
+  <p class="hint">This site is static — anything added here previews live but resets on reload. Click "Copy data as code" and paste the result over the CASES array in the file, then commit and redeploy, to make it permanent.<br><br>Recommended structure for real files: one folder per case — <code>files/case-01/</code>, <code>files/case-02/</code> — committed to the same git repo as this page. Reference them with a relative path, e.g. <code>files/case-05/report.pdf</code>. For anything hosted elsewhere (Drive, Notion, a live site), paste the full URL as a "Link" instead.</p>
 </div>
 
 <script>
@@ -324,14 +316,14 @@
       fix:'Rebuilt the growth model around a retention-first flywheel, reallocating spend from acquisition to a first-90-days experience.',
       metric:'CAC payback: 14mo → 6mo',
       attachments:[
-        { type:'pdf', label:'Full report', href:'files/case-01-report.pdf' },
-        { type:'ppt', label:'Board deck', href:'files/case-01-deck.pptx' },
+        { type:'pdf', label:'Full report', href:'files/case-01/report.pdf' },
+        { type:'ppt', label:'Board deck', href:'files/case-01/deck.pptx' },
         { type:'url', label:'Company site', href:'https://example.com' }
       ] },
     { tab:'Case 02 / Fintech', no:'02', title:'Neobank / Deposits App', stamp:'Closed',
       peek:'Deposits were growing, but 70% of new users churned before their third month.',
       pain:'Onboarding optimized for account creation, not for the moment a user actually felt the product\u2019s value.',
-      fix:'Redesigned onboarding around a single early "aha" moment, cutting time-to-value from nine days to under one.',
+      fix:'Redesigned onboarding around a single early activation moment, cutting time-to-value from nine days to under one.',
       metric:'90-day retention: up 2.3\u00d7' },
     { tab:'Case 03 / B2B SaaS', no:'03', title:'Mid-Market B2B SaaS', stamp:'In Review',
       peek:'The sales cycle stretched to nine months as buying committees grew from two to six.',
@@ -386,6 +378,7 @@
     `).join('');
 
     document.getElementById('fileCountNum').textContent = String(CASES.length).padStart(2,'0');
+    document.getElementById('rackCount').textContent = String(CASES.length).padStart(2,'0');
 
     Array.from(track.querySelectorAll('.folder')).forEach(f => {
       f.querySelector('.folder-body').addEventListener('click', () => {
@@ -559,7 +552,7 @@
 
   function renderExistingList(){
     const list = document.getElementById('existing-list');
-    list.innerHTML = '<label>In the drawer</label>' + CASES.map((c,i) => `
+    list.innerHTML = '<label>In the record</label>' + CASES.map((c,i) => `
       <div class="existing-item">
         <span>${escapeHtml(c.title || c.tab)}</span>
         <button data-remove="${i}">Remove</button>
