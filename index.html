@@ -246,7 +246,7 @@
   <footer id="footer">
     <h2>Have a company worth <em>tearing down</em>?</h2>
     <div class="foot-right">
-      <a class="mail" href="mailto:you@example.com">you@example.com →</a>
+      <a class="mail" href="mailto:shouryast.1004@gmail.com">shouryast.1004@gmail.com →</a>
       <span class="fine-print">Strategy Desk · Hyderabad · Est. 2026</span>
     </div>
   </footer>
@@ -255,8 +255,9 @@
 
 <!-- ============ hidden back door — no public link points here ============ -->
 <div id="admin">
+  <button id="admin-close" style="float:right;">Close ×</button>
   <h3>Studio — add a file</h3>
-  <p class="admin-sub">Not visible on the public site. Type the secret phrase again to close.</p>
+  <p class="admin-sub">Not visible on the public site or linked anywhere. Visit this page's URL with <b>#studio</b> on the end to open it again.</p>
 
   <label>Tab label (shows on the folder tab)</label>
   <input id="f-tab" placeholder="Case 05 / Industry">
@@ -381,11 +382,16 @@
   tick();
 
   // ---------- wheel -> horizontal scroll on rack ----------
+  // Only hijack the wheel while the rack still has room to scroll in that
+  // direction; once it's exhausted, let the page scroll past it normally.
   rack.addEventListener('wheel', (e) => {
-    if(Math.abs(e.deltaY) > Math.abs(e.deltaX)){
-      e.preventDefault();
-      track.scrollLeft += e.deltaY * 1.15;
-    }
+    if(Math.abs(e.deltaY) <= Math.abs(e.deltaX)) return;
+    const max = track.scrollWidth - track.clientWidth;
+    const atStart = track.scrollLeft <= 1;
+    const atEnd = track.scrollLeft >= max - 1;
+    if((e.deltaY < 0 && atStart) || (e.deltaY > 0 && atEnd)) return;
+    e.preventDefault();
+    track.scrollLeft += e.deltaY * 1.15;
   }, { passive:false });
 
   let isDown = false, startX, scrollStart;
@@ -416,8 +422,25 @@
   }, { threshold: 0.25 });
   revealTargets.forEach(t => io.observe(t));
 
-  // ---------- hidden back door: type "editcase" anywhere to toggle the studio panel ----------
+  // ---------- hidden back door ----------
+  // Primary, reliable trigger: visit the page URL with #studio on the end
+  // (e.g. yoursite.com/#studio). Not linked anywhere on the public page.
   const admin = document.getElementById('admin');
+
+  function checkHash(){
+    if(location.hash === '#studio') admin.classList.add('open');
+  }
+  window.addEventListener('hashchange', checkHash);
+  checkHash();
+
+  function closeAdmin(){
+    admin.classList.remove('open');
+    history.replaceState(null, '', location.pathname + location.search);
+  }
+  document.getElementById('admin-close').addEventListener('click', closeAdmin);
+  document.addEventListener('keydown', (e) => { if(e.key === 'Escape') closeAdmin(); });
+
+  // Bonus desktop-only trigger: type "editcase" anywhere outside a text field.
   const SECRET = 'editcase';
   let buffer = '';
   document.addEventListener('keydown', (e) => {
@@ -425,7 +448,6 @@
     if(tag === 'input' || tag === 'textarea') return;
     buffer = (buffer + e.key.toLowerCase()).slice(-SECRET.length);
     if(buffer === SECRET){ admin.classList.toggle('open'); buffer=''; }
-    if(e.key === 'Escape') admin.classList.remove('open');
   });
 
   function toast(msg){
