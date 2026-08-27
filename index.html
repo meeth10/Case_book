@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>The Case File — Strategy Desk</title>
+<title>The Case File · Strategy Desk</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Newsreader:ital,wght@0,400;0,500;0,600;1,400;1,500&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
@@ -53,7 +53,7 @@
   nav{
     position: fixed; top:0; left:0; right:0; z-index:20;
     display:flex; align-items:center; justify-content:space-between;
-    padding: 1.6rem clamp(1.5rem, 5vw, 4rem);
+    padding: 1.6rem clamp(1.5rem, 6vw, 5rem);
     background: linear-gradient(to bottom, rgba(20,18,14,0.9), transparent);
   }
   .brand{ display:flex; align-items:center; gap:0.7rem; }
@@ -66,7 +66,7 @@
   .hero .label{ opacity:0; animation: rise 0.9s ease forwards 0.2s; margin-bottom:1.6rem; }
   .hero h1{ font-family:'Fraunces', serif; font-weight: 380; font-size: clamp(2.6rem, 6.4vw, 5.6rem); line-height: 1.04; letter-spacing: -0.01em; max-width: 16ch; }
   .hero h1 em{ font-style: italic; font-weight:300; color: var(--gold-bright); }
-  .hero h1 .line{ display:block; overflow:hidden; }
+  .hero h1 .line{ display:block; overflow:hidden; padding-bottom:0.14em; margin-bottom:-0.14em; }
   .hero h1 .line span{ display:block; opacity:0; transform: translateY(110%); animation: rise 0.9s cubic-bezier(.2,.8,.2,1) forwards; }
   .hero h1 .line:nth-child(1) span{ animation-delay: 0.35s; }
   .hero h1 .line:nth-child(2) span{ animation-delay: 0.48s; }
@@ -102,8 +102,8 @@
   .peek{ font-size: 0.92rem; color: var(--ink-soft); line-height:1.5; }
 
   .expand-hint{ margin-top: 1.4rem; display:flex; align-items:center; gap:0.5rem; font-family:'IBM Plex Mono', monospace; font-size:0.64rem; letter-spacing:0.1em; text-transform:uppercase; color: var(--folder-shadow); }
-  .expand-hint::after{ content:'+'; font-size:0.9rem; line-height:1; transition: transform 0.3s ease; }
-  .folder.open .expand-hint::after{ content:'–'; }
+  .expand-hint::after{ content:'+'; font-size:0.9rem; line-height:1; display:inline-block; transition: transform 0.3s ease; }
+  .folder.open .expand-hint::after{ transform: rotate(45deg); }
 
   .folder-contents{ max-height: 0; overflow:hidden; transition: max-height 0.55s cubic-bezier(.2,.8,.2,1), margin-top 0.55s ease, opacity 0.4s ease; opacity:0; }
   .folder.open .folder-contents{ max-height: 420px; margin-top: 1.1rem; opacity:1; }
@@ -126,8 +126,9 @@
   .approach .label{ margin-bottom:1rem; }
   .approach h2{ font-family:'Fraunces', serif; font-weight:400; font-size: clamp(1.7rem, 3.4vw, 2.6rem); max-width: 24ch; margin-bottom: 3.4rem; }
   .steps{ display:grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 0; border-top: 1px solid var(--line); }
-  .step{ padding: 2.2rem 1.6rem 2.2rem 0; border-right: 1px solid var(--line); opacity:0; transform: translateY(18px); transition: opacity 0.7s ease, transform 0.7s ease; }
-  .step:last-child{ border-right:none; }
+  .step{ padding: 2.2rem 1.8rem 2.2rem 1.8rem; border-right: 1px solid var(--line); opacity:0; transform: translateY(18px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .step:first-child{ padding-left: 0; }
+  .step:last-child{ border-right:none; padding-right:0; }
   .steps.in-view .step{ opacity:1; transform:none; }
   .steps.in-view .step:nth-child(1){ transition-delay: 0.05s; }
   .steps.in-view .step:nth-child(2){ transition-delay: 0.2s; }
@@ -215,10 +216,10 @@
     <span class="label">Strategy Desk · Independent Practice</span>
     <h1>
       <span class="line"><span>A working record of</span></span>
-      <span class="line"><span>company analysis —</span></span>
+      <span class="line"><span>company analysis:</span></span>
       <span class="line"><span>reasoning shown <em>in full</em>.</span></span>
     </h1>
-    <p class="sub">Each file sets out the constraint identified, the mechanism behind it, and the fix proposed — with the assumptions and the numbers, not just the conclusion.</p>
+    <p class="sub">Each file sets out the constraint identified, the mechanism behind it, and the fix proposed, including the assumptions and the numbers rather than just the conclusion.</p>
   </section>
 
   <section class="rack-intro">
@@ -236,18 +237,18 @@
     <div class="steps" id="steps">
       <div class="step">
         <span class="num">01</span>
-        <h3>Diagnose</h3>
-        <p>Find the real constraint — not the symptom the org has already spent a year treating.</p>
+        <h3>Hypothesis</h3>
+        <p>State the constraint being tested before the numbers get pulled, so the analysis has something concrete to prove or disprove.</p>
       </div>
       <div class="step">
         <span class="num">02</span>
-        <h3>Design</h3>
-        <p>Draft a fix that fits the business's actual resources and time horizon, not a generic playbook.</p>
+        <h3>Data</h3>
+        <p>Pull the figures that actually bear on the hypothesis, with sources and assumptions shown alongside them.</p>
       </div>
       <div class="step">
         <span class="num">03</span>
-        <h3>Deliver</h3>
-        <p>Show the reasoning in full — assumptions, numbers, and the counterargument — so it holds up to scrutiny.</p>
+        <h3>Solutions</h3>
+        <p>Translate the finding into a fix scaled to the business's real resources and time horizon, with the tradeoffs stated plainly.</p>
       </div>
     </div>
   </section>
@@ -262,10 +263,10 @@
 
 </div>
 
-<!-- ============ hidden back door — no public link points here ============ -->
+<!-- ============ hidden back door: no public link points here ============ -->
 <div id="admin">
   <button id="admin-close" style="float:right;">Close ×</button>
-  <h3>Studio — add a file</h3>
+  <h3>Studio: add a file</h3>
   <p class="admin-sub">Not visible on the public site or linked anywhere. Visit this page's URL with <b>#studio</b> on the end to open it again.</p>
 
   <label>Tab label (shows on the folder tab)</label>
@@ -304,14 +305,14 @@
 
   <div class="existing" id="existing-list"></div>
 
-  <p class="hint">This site is static — anything added here previews live but resets on reload. Click "Copy data as code" and paste the result over the CASES array in the file, then commit and redeploy, to make it permanent.<br><br>Recommended structure for real files: one folder per case — <code>files/case-01/</code>, <code>files/case-02/</code> — committed to the same git repo as this page. Reference them with a relative path, e.g. <code>files/case-05/report.pdf</code>. For anything hosted elsewhere (Drive, Notion, a live site), paste the full URL as a "Link" instead.</p>
+  <p class="hint">This site is static, so anything added here previews live but resets on reload. Click "Copy data as code" and paste the result over the CASES array in the file, then commit and redeploy, to make it permanent.<br><br>Recommended structure for real files: one folder per case, such as <code>files/case-01/</code> and <code>files/case-02/</code>, committed to the same git repo as this page. Reference them with a relative path, e.g. <code>files/case-05/report.pdf</code>. For anything hosted elsewhere (Drive, Notion, a live site), paste the full URL as a "Link" instead.</p>
 </div>
 
 <script>
   // ---------- case data (edit this array directly, or use the studio back door) ----------
   let CASES = [
     { tab:'Case 01 / Retail', no:'01', title:'Direct-to-Consumer Retail Brand', stamp:'Reviewed',
-      peek:'CAC had outpaced LTV for three straight quarters — growth was funded, not earned.',
+      peek:'CAC had outpaced LTV for three straight quarters, growth was funded rather than earned.',
       pain:'Paid acquisition scaled faster than retention could support it; every new cohort paid back slower than the last.',
       fix:'Rebuilt the growth model around a retention-first flywheel, reallocating spend from acquisition to a first-90-days experience.',
       metric:'CAC payback: 14mo → 6mo',
@@ -328,12 +329,12 @@
     { tab:'Case 03 / B2B SaaS', no:'03', title:'Mid-Market B2B SaaS', stamp:'In Review',
       peek:'The sales cycle stretched to nine months as buying committees grew from two to six.',
       pain:'Reps were re-explaining value to every new stakeholder instead of arming the champion to sell internally.',
-      fix:'Built a champion-enablement kit \u2014 a one-page internal pitch the buyer could forward without the rep in the room.',
+      fix:'Built a champion-enablement kit: a one-page internal pitch the buyer could forward without the rep in the room.',
       metric:'Sales cycle: 9mo \u2192 5mo' },
     { tab:'Case 04 / Manufacturing', no:'04', title:'Legacy Industrial Manufacturer', stamp:'Reviewed',
       peek:'Margins compressed 400bps as private-label competitors undercut on price alone.',
       pain:'Competing on price against players with structurally lower costs was a fight the business couldn\u2019t win.',
-      fix:'Repositioned around a premium service tier \u2014 guaranteed lead times and on-site support \u2014 competitors couldn\u2019t match.',
+      fix:'Repositioned around a premium service tier, with guaranteed lead times and on-site support that competitors couldn\u2019t match.',
       metric:'Gross margin: +310bps' }
   ];
 
@@ -359,7 +360,7 @@
         <div class="tab">${escapeHtml(c.tab)}</div>
         <div class="folder-body">
           <span class="stamp">${escapeHtml(c.stamp)}</span>
-          <div class="case-no">FILE — ${escapeHtml(c.no)}</div>
+          <div class="case-no">FILE NO. ${escapeHtml(c.no)}</div>
           <h3 class="case-title">${escapeHtml(c.title)}</h3>
           <p class="peek">${escapeHtml(c.peek)}</p>
           <div class="expand-hint">Read the file</div>
@@ -501,7 +502,7 @@
     const list = document.getElementById('attach-list');
     list.innerHTML = pendingAttachments.map((a,i) => `
       <div class="attach-chip">
-        <span>${TYPE_ICON[a.type]||'📎'} ${escapeHtml(a.label)} — ${escapeHtml(a.href)}</span>
+        <span>${TYPE_ICON[a.type]||'📎'} ${escapeHtml(a.label)} (${escapeHtml(a.href)})</span>
         <button data-remove-attach="${i}">Remove</button>
       </div>
     `).join('');
@@ -542,12 +543,12 @@
     ['f-tab','f-title','f-stamp','f-peek','f-pain','f-fix','f-metric'].forEach(id => document.getElementById(id).value = '');
     pendingAttachments = [];
     renderPendingAttachments();
-    toast('Added — previewing live.');
+    toast('Added. Previewing live.');
   });
 
   document.getElementById('copy-code').addEventListener('click', () => {
     const code = 'let CASES = ' + JSON.stringify(CASES, null, 2) + ';';
-    navigator.clipboard.writeText(code).then(() => toast('Copied — paste over the CASES array in the file.'));
+    navigator.clipboard.writeText(code).then(() => toast('Copied. Paste over the CASES array in the file.'));
   });
 
   function renderExistingList(){
