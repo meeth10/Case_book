@@ -21,6 +21,7 @@
     --ink-soft: #4a4232;
     --muted: #a99d84;
     --stamp: #93341f;
+    --ok: #5c8a5c;
     --line: rgba(205,166,101,0.22);
   }
 
@@ -148,7 +149,7 @@
 
   /* ---------- admin back door (hidden, no public entry point) ---------- */
   #admin{
-    position: fixed; top:0; right:0; height:100%; width: min(92vw, 380px); z-index:50;
+    position: fixed; top:0; right:0; height:100%; width: min(92vw, 400px); z-index:50;
     background: var(--bg-2); border-left: 1px solid var(--line);
     transform: translateX(100%); transition: transform 0.4s cubic-bezier(.2,.8,.2,1);
     overflow-y: auto; padding: 1.6rem 1.4rem 3rem;
@@ -164,28 +165,37 @@
     resize: vertical;
   }
   #admin input:focus, #admin textarea:focus{ outline:none; border-color: var(--gold); }
-  #admin .row{ display:flex; gap:2rem; margin-top:1.6rem; flex-wrap:wrap; }
+  #admin .row{ display:flex; gap:0.7rem; margin-top:1rem; flex-wrap:wrap; }
   #admin button{
-    font-family:'IBM Plex Mono', monospace; font-size:0.68rem; letter-spacing:0.08em; text-transform:uppercase;
-    padding:0.6rem 1rem; border-radius:6px; cursor:pointer; border:1px solid var(--gold);
+    font-family:'IBM Plex Mono', monospace; font-size:0.66rem; letter-spacing:0.06em; text-transform:uppercase;
+    padding:0.6rem 0.9rem; border-radius:6px; cursor:pointer; border:1px solid var(--gold);
     background: transparent; color: var(--gold-bright); transition: background 0.25s ease, color 0.25s ease;
   }
   #admin button.primary{ background: var(--gold-bright); color: var(--ink); border-color: var(--gold-bright); }
   #admin button:hover{ background: var(--gold-bright); color: var(--ink); }
+  #admin button:disabled{ opacity:0.45; cursor:default; }
+  #admin button:disabled:hover{ background:transparent; color: var(--gold-bright); }
   #admin .existing{ margin-top:2.2rem; border-top:1px solid var(--line); padding-top:1.2rem; }
   #admin .existing-item{ display:flex; justify-content:space-between; align-items:center; font-size:0.8rem; padding:0.5rem 0; border-bottom:1px dashed var(--line); }
   #admin .existing-item button{ padding:0.2rem 0.5rem; font-size:0.6rem; border-color: var(--stamp); color: var(--stamp); }
   #admin .existing-item button:hover{ background: var(--stamp); color: var(--paper); }
-  #admin .toast{ margin-top:0.8rem; font-size:0.74rem; color: var(--gold-bright); font-family:'IBM Plex Mono', monospace; min-height:1em; }
+  #admin .toast{ margin-top:0.8rem; font-size:0.74rem; color: var(--gold-bright); font-family:'IBM Plex Mono', monospace; min-height:2.2em; line-height:1.4; }
+  #admin .toast.err{ color: var(--stamp); }
+  #admin .toast.ok{ color: var(--ok); }
   #admin .hint{ font-size:0.72rem; color:var(--muted); margin-top:1.6rem; line-height:1.5; }
   #admin .attach-row{ display:flex; gap:0.4rem; margin-top:0.5rem; align-items:center; }
   #admin .attach-row select{ background: rgba(255,255,255,0.04); border:1px solid var(--line); border-radius:6px; color:var(--paper); font-family:'IBM Plex Mono', monospace; font-size:0.72rem; padding:0.45rem 0.3rem; }
   #admin .attach-row input{ flex:1; min-width:0; }
-  #admin .attach-row button{ padding:0.4rem 0.55rem; font-size:0.62rem; }
+  #admin .attach-row button{ padding:0.4rem 0.55rem; font-size:0.6rem; white-space:nowrap; }
   #admin .attach-list{ display:flex; flex-direction:column; gap:0.4rem; margin-top:0.7rem; }
-  #admin .attach-chip{ display:flex; justify-content:space-between; align-items:center; font-size:0.76rem; background:rgba(255,255,255,0.04); border:1px solid var(--line); border-radius:6px; padding:0.4rem 0.6rem; }
-  #admin .attach-chip button{ padding:0.15rem 0.5rem; font-size:0.58rem; border-color: var(--stamp); color: var(--stamp); }
+  #admin .attach-chip{ display:flex; justify-content:space-between; align-items:center; gap:0.5rem; font-size:0.76rem; background:rgba(255,255,255,0.04); border:1px solid var(--line); border-radius:6px; padding:0.4rem 0.6rem; }
+  #admin .attach-chip span{ overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+  #admin .attach-chip button{ padding:0.15rem 0.5rem; font-size:0.58rem; border-color: var(--stamp); color: var(--stamp); flex:0 0 auto; }
   #admin .attach-chip button:hover{ background: var(--stamp); color: var(--paper); }
+  #admin .gh-section{ margin-top:0.6rem; padding-top:1rem; border-top:1px solid var(--line); }
+  #admin .gh-section h4{ font-family:'IBM Plex Mono', monospace; font-size:0.7rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--paper); margin-bottom:0.2rem; }
+  #admin .gh-status{ font-family:'IBM Plex Mono', monospace; font-size:0.66rem; color:var(--muted); margin-top:0.3rem; }
+  #admin .gh-status.connected{ color: var(--ok); }
 
   @media (max-width: 640px){
     .steps{ grid-template-columns: 1fr; }
@@ -269,7 +279,26 @@
   <h3>Studio: add a file</h3>
   <p class="admin-sub">Not visible on the public site or linked anywhere. Visit this page's URL with <b>#studio</b> on the end to open it again.</p>
 
-  <label>Tab label (shows on the folder tab)</label>
+  <div class="gh-section">
+    <h4>GitHub connection</h4>
+    <p class="admin-sub" style="margin-bottom:0.8rem;">Your PAT stays in this tab's memory only — it is never written to the page, never saved to disk, and is gone on reload. Use a fine-grained token scoped to this one repo only, with "Contents: Read and write" permission.</p>
+    <label>Repo (owner/name)</label>
+    <input id="gh-repo" placeholder="yourname/case-file-site">
+    <label>Branch</label>
+    <input id="gh-branch" placeholder="main" value="main">
+    <label>Data file path</label>
+    <input id="gh-datapath" placeholder="data/cases.json" value="data/cases.json">
+    <label>Personal Access Token</label>
+    <input id="gh-pat" type="password" placeholder="github_pat_...">
+    <div class="row">
+      <button id="gh-load">Load from repo</button>
+      <button class="primary" id="gh-commit">Commit cases to repo</button>
+    </div>
+    <div class="gh-status" id="gh-status">Not connected — actions below stay local until you commit.</div>
+    <div class="toast" id="gh-toast"></div>
+  </div>
+
+  <label style="margin-top:1.4rem;">Tab label (shows on the folder tab)</label>
   <input id="f-tab" placeholder="Case 05 / Industry">
   <label>Case title</label>
   <input id="f-title" placeholder="Company or category">
@@ -284,7 +313,7 @@
   <label>Metric / result</label>
   <input id="f-metric" placeholder="e.g. Margin: +310bps">
 
-  <label>Attachments</label>
+  <label>Attachments — link to an existing URL</label>
   <div class="attach-row">
     <select id="a-type">
       <option value="pdf">PDF</option>
@@ -292,12 +321,18 @@
       <option value="url">Link</option>
     </select>
     <input id="a-label" placeholder="Label, e.g. Full report">
-    <input id="a-href" placeholder="files/case-05/report.pdf or https://...">
-    <button id="add-attachment">+</button>
+    <input id="a-href" placeholder="https://... or files/case-05/report.pdf">
+    <button id="add-attachment">+ Link</button>
+  </div>
+
+  <label>Attachments — upload a file straight to GitHub</label>
+  <div class="attach-row">
+    <input type="file" id="a-file" accept=".pdf,.ppt,.pptx,.doc,.docx,.xlsx">
+    <button id="upload-attachment" disabled>Upload</button>
   </div>
   <div class="attach-list" id="attach-list"></div>
 
-  <div class="row">
+  <div class="row" style="margin-top:1.6rem;">
     <button class="primary" id="add-case">Add to record</button>
     <button id="copy-code">Copy data as code</button>
   </div>
@@ -305,11 +340,24 @@
 
   <div class="existing" id="existing-list"></div>
 
-  <p class="hint">This site is static, so anything added here previews live but resets on reload. Click "Copy data as code" and paste the result over the CASES array in the file, then commit and redeploy, to make it permanent.<br><br>Recommended structure for real files: one folder per case, such as <code>files/case-01/</code> and <code>files/case-02/</code>, committed to the same git repo as this page. Reference them with a relative path, e.g. <code>files/case-05/report.pdf</code>. For anything hosted elsewhere (Drive, Notion, a live site), paste the full URL as a "Link" instead.</p>
+  <p class="hint">
+    <b>With a GitHub connection:</b> "Commit cases to repo" pushes the current record straight to <code>data/cases.json</code> in your repo. Every visitor's page then loads that file live — no manual redeploy needed. Uploaded attachments go to <code>files/uploads/…</code> in the same repo and get a permanent <code>raw.githubusercontent.com</code> link, which you can hand directly to NotebookLM (Google LM) as a source.<br><br>
+    <b>Without one:</b> the site behaves as before — everything here previews live but resets on reload. "Copy data as code" gives you the CASES array to paste into this file by hand.<br><br>
+    To make the public site load from GitHub automatically (not just this studio tab), fill in <code>SITE_CONFIG</code> near the top of the script with your repo, branch and data path, and commit that change once.
+  </p>
 </div>
 
 <script>
-  // ---------- case data (edit this array directly, or use the studio back door) ----------
+  // ---------- site-wide GitHub data source (edit once, commit, and every visitor's ----------
+  // ---------- page will load live case data from your repo instead of the hardcoded array) ----------
+  const SITE_CONFIG = {
+    githubOwner: '',    // e.g. 'shourya'
+    githubRepo: '',     // e.g. 'case-file-site'
+    githubBranch: 'main',
+    dataPath: 'data/cases.json'
+  };
+
+  // ---------- case data (fallback used until SITE_CONFIG is filled in, or if the fetch fails) ----------
   let CASES = [
     { tab:'Case 01 / Retail', no:'01', title:'Direct-to-Consumer Retail Brand', stamp:'Reviewed',
       peek:'CAC had outpaced LTV for three straight quarters, growth was funded rather than earned.',
@@ -393,6 +441,20 @@
     renderExistingList();
   }
 
+  // ---------- try loading the live data file from GitHub before first render ----------
+  async function loadInitialCases(){
+    if(!SITE_CONFIG.githubOwner || !SITE_CONFIG.githubRepo){ renderFolders(); return; }
+    try{
+      const url = `https://raw.githubusercontent.com/${SITE_CONFIG.githubOwner}/${SITE_CONFIG.githubRepo}/${SITE_CONFIG.githubBranch}/${SITE_CONFIG.dataPath}?_=${Date.now()}`;
+      const res = await fetch(url, { cache: 'no-store' });
+      if(res.ok){
+        const data = await res.json();
+        if(Array.isArray(data) && data.length) CASES = data;
+      }
+    }catch(e){ /* fall back to the hardcoded array above */ }
+    renderFolders();
+  }
+
   // ---------- dust-mote background ----------
   const canvas = document.getElementById('bg-canvas');
   const ctx = canvas.getContext('2d');
@@ -421,8 +483,6 @@
   tick();
 
   // ---------- wheel -> horizontal scroll on rack ----------
-  // Only hijack the wheel while the rack still has room to scroll in that
-  // direction; once it's exhausted, let the page scroll past it normally.
   rack.addEventListener('wheel', (e) => {
     if(Math.abs(e.deltaY) <= Math.abs(e.deltaX)) return;
     const max = track.scrollWidth - track.clientWidth;
@@ -462,8 +522,6 @@
   revealTargets.forEach(t => io.observe(t));
 
   // ---------- hidden back door ----------
-  // Primary, reliable trigger: visit the page URL with #studio on the end
-  // (e.g. yoursite.com/#studio). Not linked anywhere on the public page.
   const admin = document.getElementById('admin');
 
   function checkHash(){
@@ -479,7 +537,6 @@
   document.getElementById('admin-close').addEventListener('click', closeAdmin);
   document.addEventListener('keydown', (e) => { if(e.key === 'Escape') closeAdmin(); });
 
-  // Bonus desktop-only trigger: type "editcase" anywhere outside a text field.
   const SECRET = 'editcase';
   let buffer = '';
   document.addEventListener('keydown', (e) => {
@@ -489,11 +546,126 @@
     if(buffer === SECRET){ admin.classList.toggle('open'); buffer=''; }
   });
 
-  function toast(msg){
+  function toast(msg, kind){
     const t = document.getElementById('toast');
+    t.className = 'toast' + (kind ? ' '+kind : '');
     t.textContent = msg;
-    setTimeout(() => { if(t.textContent === msg) t.textContent = ''; }, 2200);
+    setTimeout(() => { if(t.textContent === msg) t.textContent = ''; }, 3200);
   }
+  function ghToast(msg, kind){
+    const t = document.getElementById('gh-toast');
+    t.className = 'toast' + (kind ? ' '+kind : '');
+    t.textContent = msg;
+    setTimeout(() => { if(t.textContent === msg) t.textContent = ''; }, 4200);
+  }
+
+  // ============ GitHub connection (PAT kept in memory only, never persisted) ============
+  function ghConfig(){
+    const repo = document.getElementById('gh-repo').value.trim();
+    const [owner, name] = repo.split('/');
+    return {
+      owner, name,
+      branch: document.getElementById('gh-branch').value.trim() || 'main',
+      dataPath: document.getElementById('gh-datapath').value.trim() || 'data/cases.json',
+      pat: document.getElementById('gh-pat').value.trim()
+    };
+  }
+
+  function ghReady(cfg){
+    return !!(cfg.owner && cfg.name && cfg.pat);
+  }
+
+  function updateGhStatus(){
+    const cfg = ghConfig();
+    const status = document.getElementById('gh-status');
+    const uploadBtn = document.getElementById('upload-attachment');
+    if(ghReady(cfg)){
+      status.textContent = `Ready to commit to ${cfg.owner}/${cfg.name} @ ${cfg.branch}`;
+      status.classList.add('connected');
+      uploadBtn.disabled = false;
+    } else {
+      status.textContent = 'Not connected — fill in repo + PAT to load/commit/upload.';
+      status.classList.remove('connected');
+      uploadBtn.disabled = true;
+    }
+  }
+  ['gh-repo','gh-branch','gh-datapath','gh-pat'].forEach(id => {
+    document.getElementById(id).addEventListener('input', updateGhStatus);
+  });
+  updateGhStatus();
+
+  function b64EncodeUnicode(str){
+    return btoa(unescape(encodeURIComponent(str)));
+  }
+
+  async function ghApi(path, cfg, options){
+    const res = await fetch(`https://api.github.com/repos/${cfg.owner}/${cfg.name}/${path}`, {
+      ...options,
+      headers: {
+        'Authorization': `Bearer ${cfg.pat}`,
+        'Accept': 'application/vnd.github+json',
+        ...(options && options.headers ? options.headers : {})
+      }
+    });
+    let body = null;
+    try{ body = await res.json(); }catch(e){ /* no body */ }
+    if(!res.ok){
+      const msg = (body && body.message) || `${res.status} ${res.statusText}`;
+      throw new Error(msg);
+    }
+    return body;
+  }
+
+  async function ghGetFile(filePath, cfg){
+    try{
+      return await ghApi(`contents/${filePath}?ref=${cfg.branch}`, cfg, { method:'GET' });
+    }catch(e){
+      if(String(e.message).match(/Not Found/i)) return null;
+      throw e;
+    }
+  }
+
+  async function ghPutFile(filePath, base64Content, message, cfg){
+    const existing = await ghGetFile(filePath, cfg);
+    const payload = {
+      message,
+      content: base64Content,
+      branch: cfg.branch
+    };
+    if(existing && existing.sha) payload.sha = existing.sha;
+    return await ghApi(`contents/${filePath}`, cfg, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    });
+  }
+
+  document.getElementById('gh-load').addEventListener('click', async () => {
+    const cfg = ghConfig();
+    if(!ghReady(cfg)){ ghToast('Fill in repo + PAT first.', 'err'); return; }
+    ghToast('Loading…');
+    try{
+      const file = await ghGetFile(cfg.dataPath, cfg);
+      if(!file){ ghToast('No data file there yet — commit once to create it.', 'err'); return; }
+      const json = decodeURIComponent(escape(atob(file.content.replace(/\n/g,''))));
+      const data = JSON.parse(json);
+      if(!Array.isArray(data)) throw new Error('Data file is not a case array.');
+      CASES = data;
+      renderFolders();
+      ghToast(`Loaded ${data.length} cases from ${cfg.dataPath}.`, 'ok');
+    }catch(e){ ghToast('Load failed: ' + e.message, 'err'); }
+  });
+
+  document.getElementById('gh-commit').addEventListener('click', async () => {
+    const cfg = ghConfig();
+    if(!ghReady(cfg)){ ghToast('Fill in repo + PAT first.', 'err'); return; }
+    ghToast('Committing…');
+    try{
+      const content = b64EncodeUnicode(JSON.stringify(CASES, null, 2));
+      await ghPutFile(cfg.dataPath, content, `Update case data (${CASES.length} cases)`, cfg);
+      ghToast(`Committed ${CASES.length} cases to ${cfg.dataPath}. Live for visitors once SITE_CONFIG points here.`, 'ok');
+    }catch(e){ ghToast('Commit failed: ' + e.message, 'err'); }
+  });
 
   // ---------- attachment builder (staged list for the case currently being added) ----------
   let pendingAttachments = [];
@@ -502,7 +674,7 @@
     const list = document.getElementById('attach-list');
     list.innerHTML = pendingAttachments.map((a,i) => `
       <div class="attach-chip">
-        <span>${TYPE_ICON[a.type]||'📎'} ${escapeHtml(a.label)} (${escapeHtml(a.href)})</span>
+        <span>${TYPE_ICON[a.type]||'📎'} ${escapeHtml(a.label)} — ${escapeHtml(a.href)}</span>
         <button data-remove-attach="${i}">Remove</button>
       </div>
     `).join('');
@@ -517,16 +689,53 @@
   document.getElementById('add-attachment').addEventListener('click', () => {
     const label = document.getElementById('a-label').value.trim();
     const href = document.getElementById('a-href').value.trim();
-    if(!label || !href){ toast('Attachment needs a label and a link/path.'); return; }
+    if(!label || !href){ toast('Attachment needs a label and a link/path.', 'err'); return; }
     pendingAttachments.push({ type: document.getElementById('a-type').value, label, href });
     document.getElementById('a-label').value = '';
     document.getElementById('a-href').value = '';
     renderPendingAttachments();
   });
 
+  function fileToBase64(file){
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = () => resolve(reader.result.split(',')[1]);
+      reader.onerror = () => reject(new Error('Could not read file.'));
+      reader.readAsDataURL(file);
+    });
+  }
+
+  function extToType(name){
+    const ext = (name.split('.').pop() || '').toLowerCase();
+    if(ext === 'pdf') return 'pdf';
+    if(['ppt','pptx'].includes(ext)) return 'ppt';
+    return 'url';
+  }
+
+  document.getElementById('upload-attachment').addEventListener('click', async () => {
+    const cfg = ghConfig();
+    if(!ghReady(cfg)){ toast('Connect GitHub above first.', 'err'); return; }
+    const input = document.getElementById('a-file');
+    const file = input.files[0];
+    if(!file){ toast('Choose a file to upload first.', 'err'); return; }
+    toast('Uploading ' + file.name + '…');
+    try{
+      const base64 = await fileToBase64(file);
+      const safeName = file.name.replace(/[^a-zA-Z0-9.\-_]/g, '_');
+      const remotePath = `files/uploads/${Date.now()}-${safeName}`;
+      const result = await ghPutFile(remotePath, base64, `Upload attachment: ${file.name}`, cfg);
+      const url = (result && result.content && result.content.download_url) ||
+                  `https://raw.githubusercontent.com/${cfg.owner}/${cfg.name}/${cfg.branch}/${remotePath}`;
+      pendingAttachments.push({ type: extToType(file.name), label: file.name, href: url });
+      renderPendingAttachments();
+      input.value = '';
+      toast('Uploaded. Link ready — copy it into NotebookLM whenever you like.', 'ok');
+    }catch(e){ toast('Upload failed: ' + e.message, 'err'); }
+  });
+
   document.getElementById('add-case').addEventListener('click', () => {
     const title = document.getElementById('f-title').value.trim();
-    if(!title){ toast('Give it at least a title.'); return; }
+    if(!title){ toast('Give it at least a title.', 'err'); return; }
     const next = {
       tab: document.getElementById('f-tab').value.trim() || `Case ${String(CASES.length+1).padStart(2,'0')}`,
       no: String(CASES.length+1).padStart(2,'0'),
@@ -543,12 +752,12 @@
     ['f-tab','f-title','f-stamp','f-peek','f-pain','f-fix','f-metric'].forEach(id => document.getElementById(id).value = '');
     pendingAttachments = [];
     renderPendingAttachments();
-    toast('Added. Previewing live.');
+    toast('Added locally. Click "Commit cases to repo" above to make it permanent.', 'ok');
   });
 
   document.getElementById('copy-code').addEventListener('click', () => {
     const code = 'let CASES = ' + JSON.stringify(CASES, null, 2) + ';';
-    navigator.clipboard.writeText(code).then(() => toast('Copied. Paste over the CASES array in the file.'));
+    navigator.clipboard.writeText(code).then(() => toast('Copied. Paste over the CASES array in the file.', 'ok'));
   });
 
   function renderExistingList(){
@@ -567,7 +776,7 @@
     });
   }
 
-  renderFolders();
+  loadInitialCases();
 </script>
 
 </body>
