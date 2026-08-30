@@ -283,7 +283,7 @@
     <h4>GitHub connection</h4>
     <p class="admin-sub" style="margin-bottom:0.8rem;">Your PAT stays in this tab's memory only — it is never written to the page, never saved to disk, and is gone on reload. Use a fine-grained token scoped to this one repo only, with "Contents: Read and write" permission.</p>
     <label>Repo (owner/name)</label>
-    <input id="gh-repo" placeholder="yourname/case-file-site">
+    <input id="gh-repo" placeholder="yourname/case-file-site" value="meeth10/Case_book">
     <label>Branch</label>
     <input id="gh-branch" placeholder="main" value="main">
     <label>Data file path</label>
@@ -358,8 +358,8 @@
   // ---------- site-wide GitHub data source (edit once, commit, and every visitor's ----------
   // ---------- page will load live case data from your repo instead of the hardcoded array) ----------
   const SITE_CONFIG = {
-    githubOwner: '',    // e.g. 'shourya'
-    githubRepo: '',     // e.g. 'case-file-site'
+    githubOwner: 'meeth10',
+    githubRepo: 'Case_book',
     githubBranch: 'main',
     dataPath: 'data/cases.json'
   };
@@ -582,6 +582,8 @@
     return !!(cfg.owner && cfg.name && cfg.pat);
   }
 
+  let ghVisibilityCheckToken = 0;
+
   function updateGhStatus(){
     const cfg = ghConfig();
     const status = document.getElementById('gh-status');
@@ -590,12 +592,43 @@
       status.textContent = `Ready to commit to ${cfg.owner}/${cfg.name} @ ${cfg.branch}`;
       status.classList.add('connected');
       uploadBtn.disabled = false;
+      checkGhRepoVisibility(cfg);
     } else {
       status.textContent = 'Not connected — fill in repo + PAT to load/commit/upload.';
       status.classList.remove('connected');
       uploadBtn.disabled = true;
     }
   }
+
+  // Warns immediately if the typed repo is private or doesn't exist — the exact
+  // failure mode where a commit silently succeeds but the public page can never
+  // read it back without a token.
+  async function checkGhRepoVisibility(cfg){
+    const myToken = ++ghVisibilityCheckToken;
+    const status = document.getElementById('gh-status');
+    try{
+      const res = await fetch(`https://api.github.com/repos/${cfg.owner}/${cfg.name}`, {
+        headers: cfg.pat ? { 'Authorization': `Bearer ${cfg.pat}`, 'Accept': 'application/vnd.github+json' } : { 'Accept': 'application/vnd.github+json' }
+      });
+      if(myToken !== ghVisibilityCheckToken) return; // a newer check superseded this one
+      if(res.status === 404){
+        status.textContent = `⚠ ${cfg.owner}/${cfg.name} not found (wrong name, or private and your PAT can't see it).`;
+        status.classList.remove('connected');
+        return;
+      }
+      if(!res.ok) return; // rate-limited or transient — don't alarm over it
+      const data = await res.json();
+      if(myToken !== ghVisibilityCheckToken) return;
+      if(data.private){
+        status.textContent = `⚠ ${cfg.owner}/${cfg.name} is PRIVATE — visitors without a token can't read data from it. Make it public, or the main screen will keep showing the fallback cases.`;
+        status.classList.remove('connected');
+      } else {
+        status.textContent = `Ready to commit to ${cfg.owner}/${cfg.name} @ ${cfg.branch} (public — visitors can read it).`;
+        status.classList.add('connected');
+      }
+    }catch(e){ /* network hiccup — leave the optimistic status in place */ }
+  }
+
   ['gh-repo','gh-branch','gh-datapath','gh-pat'].forEach(id => {
     document.getElementById(id).addEventListener('input', updateGhStatus);
   });
