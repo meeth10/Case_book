@@ -691,6 +691,24 @@
     }
   }
 
+  async function ghDeleteFile(filePath, cfg, message){
+    const existing = await ghGetFile(filePath, cfg);
+    if(!existing) return; // already gone
+    await ghApi(`contents/${filePath}`, cfg, {
+      method: 'DELETE',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ message, sha: existing.sha, branch: cfg.branch })
+    });
+  }
+
+  // An attachment counts as "ours to delete" only if its URL actually points into
+  // the connected repo's raw content — links to other sites are left alone.
+  function attachmentRepoPath(href, cfg){
+    if(!cfg.owner || !cfg.name) return null;
+    const prefix = `https://raw.githubusercontent.com/${cfg.owner}/${cfg.name}/${cfg.branch}/`;
+    return href && href.startsWith(prefix) ? href.slice(prefix.length) : null;
+  }
+
   function setButtonsBusy(ids, busy){
     ids.forEach(id => { document.getElementById(id).disabled = busy; });
   }
@@ -766,8 +784,20 @@
       </div>
     `).join('');
     list.querySelectorAll('button[data-remove-attach]').forEach(btn => {
-      btn.addEventListener('click', () => {
-        pendingAttachments.splice(Number(btn.dataset.removeAttach), 1);
+      btn.addEventListener('click', async () => {
+        const idx = Number(btn.dataset.removeAttach);
+        const attach = pendingAttachments[idx];
+        const cfg = ghConfig();
+        const filePath = attachmentRepoPath(attach.href, cfg);
+        if(filePath && ghReady(cfg)){
+          const ok = confirm(`This file (${filePath}) was already uploaded to GitHub. Delete it from the repo too?`);
+          if(ok){
+            toast('Deleting uploaded file…');
+            try{ await ghDeleteFile(filePath, cfg, `Remove unused upload: ${attach.label}`); toast('Deleted.', 'ok'); }
+            catch(e){ toast('Could not delete: ' + e.message, 'err'); }
+          }
+        }
+        pendingAttachments.splice(idx, 1);
         renderPendingAttachments();
       });
     });
@@ -858,9 +888,29 @@
       </div>
     `).join('');
     list.querySelectorAll('button[data-remove]').forEach(btn => {
-      btn.addEventListener('click', () => {
-        CASES.splice(Number(btn.dataset.remove), 1);
+      btn.addEventListener('click', async () => {
+        const idx = Number(btn.dataset.remove);
+        const removed = CASES[idx];
+        const cfg = ghConfig();
+        const filePaths = (removed.attachments || [])
+          .map(a => attachmentRepoPath(a.href, cfg))
+          .filter(Boolean);
+
+        if(filePaths.length && ghReady(cfg)){
+          const ok = confirm(`This case has ${filePaths.length} file(s) uploaded to GitHub (e.g. ${filePaths[0]}). Delete them from the repo too? Cancel to just remove the case and leave the files in place.`);
+          if(ok){
+            btn.disabled = true;
+            toast(`Deleting ${filePaths.length} file(s) from GitHub…`);
+            for(const p of filePaths){
+              try{ await ghDeleteFile(p, cfg, `Remove attachment for deleted case: ${removed.title || removed.tab}`); }
+              catch(e){ toast(`Could not delete ${p}: ${e.message}`, 'err'); }
+            }
+          }
+        }
+
+        CASES.splice(idx, 1);
         renderFolders();
+        toast('Removed. Click "Commit cases to repo" to make it permanent.', 'ok');
       });
     });
   }
