@@ -296,6 +296,13 @@
     </div>
     <div class="gh-status" id="gh-status">Not connected — actions below stay local until you commit.</div>
     <div class="toast" id="gh-toast"></div>
+
+    <label style="margin-top:1.2rem;">Page file to update (so visitors see it live, no PAT needed)</label>
+    <input id="gh-pagepath" placeholder="index.html" value="index.html">
+    <div class="row">
+      <button class="primary" id="gh-save-config">Save this connection into the page</button>
+    </div>
+    <p class="admin-sub" style="margin-top:0.5rem;">One-time step. This writes your repo/branch/data-path — never the PAT — into the file itself and commits it. After this, the public page auto-loads <code>data/cases.json</code> for every visitor, with no token involved.</p>
   </div>
 
   <label style="margin-top:1.4rem;">Tab label (shows on the folder tab)</label>
@@ -343,7 +350,7 @@
   <p class="hint">
     <b>With a GitHub connection:</b> "Commit cases to repo" pushes the current record straight to <code>data/cases.json</code> in your repo. Every visitor's page then loads that file live — no manual redeploy needed. Uploaded attachments go to <code>files/uploads/…</code> in the same repo and get a permanent <code>raw.githubusercontent.com</code> link, which you can hand directly to NotebookLM (Google LM) as a source.<br><br>
     <b>Without one:</b> the site behaves as before — everything here previews live but resets on reload. "Copy data as code" gives you the CASES array to paste into this file by hand.<br><br>
-    To make the public site load from GitHub automatically (not just this studio tab), fill in <code>SITE_CONFIG</code> near the top of the script with your repo, branch and data path, and commit that change once.
+    <b>One-time setup:</b> click "Save this connection into the page" once — it wires your repo into the file that visitors actually load, so from then on the main screen shows everything you've committed (cases and uploaded files) without anyone needing a PAT.
   </p>
 </div>
 
@@ -665,6 +672,32 @@
       await ghPutFile(cfg.dataPath, content, `Update case data (${CASES.length} cases)`, cfg);
       ghToast(`Committed ${CASES.length} cases to ${cfg.dataPath}. Live for visitors once SITE_CONFIG points here.`, 'ok');
     }catch(e){ ghToast('Commit failed: ' + e.message, 'err'); }
+  });
+
+  document.getElementById('gh-save-config').addEventListener('click', async () => {
+    const cfg = ghConfig();
+    if(!ghReady(cfg)){ ghToast('Fill in repo + PAT first.', 'err'); return; }
+    const pagePath = document.getElementById('gh-pagepath').value.trim() || 'index.html';
+    ghToast('Reading current page file…');
+    try{
+      const file = await ghGetFile(pagePath, cfg);
+      if(!file) throw new Error(`${pagePath} not found in this repo/branch yet — commit the page there first.`);
+      let html = decodeURIComponent(escape(atob(file.content.replace(/\n/g,''))));
+      const configRegex = /const SITE_CONFIG = \{[\s\S]*?\};/;
+      if(!configRegex.test(html)) throw new Error('Could not find SITE_CONFIG in that file — is it the right page?');
+      const newConfig =
+`const SITE_CONFIG = {
+    githubOwner: '${cfg.owner}',
+    githubRepo: '${cfg.name}',
+    githubBranch: '${cfg.branch}',
+    dataPath: '${cfg.dataPath}'
+  };`;
+      html = html.replace(configRegex, newConfig);
+      ghToast('Committing updated page…');
+      const content = b64EncodeUnicode(html);
+      await ghPutFile(pagePath, content, 'Wire SITE_CONFIG to live GitHub data source', cfg);
+      ghToast(`Done. ${pagePath} now auto-loads ${cfg.dataPath} for every visitor — no PAT needed.`, 'ok');
+    }catch(e){ ghToast('Save failed: ' + e.message, 'err'); }
   });
 
   // ---------- attachment builder (staged list for the case currently being added) ----------
