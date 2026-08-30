@@ -27,14 +27,14 @@
     ]
   },
   {
-    "tab": "Case 03 / B2B SaaS",
-    "no": "03",
-    "title": "Mid-Market B2B SaaS",
-    "stamp": "In Review",
-    "peek": "The sales cycle stretched to nine months as buying committees grew from two to six.",
-    "pain": "Reps were re-explaining value to every new stakeholder instead of arming the champion to sell internally.",
-    "fix": "Built a champion-enablement kit: a one-page internal pitch the buyer could forward without the rep in the room.",
-    "metric": "Sales cycle: 9mo → 5mo"
+    "tab": "Case 02 / Fintech",
+    "no": "02",
+    "title": "Neobank / Deposits App",
+    "stamp": "Closed",
+    "peek": "Deposits were growing, but 70% of new users churned before their third month.",
+    "pain": "Onboarding optimized for account creation, not for the moment a user actually felt the product’s value.",
+    "fix": "Redesigned onboarding around a single early activation moment, cutting time-to-value from nine days to under one.",
+    "metric": "90-day retention: up 2.3×"
   },
   {
     "tab": "Case 04 / Manufacturing",
