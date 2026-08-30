@@ -1,0 +1,70 @@
+[
+  {
+    "tab": "Case 01 / Retail",
+    "no": "01",
+    "title": "Direct-to-Consumer Retail Brand",
+    "stamp": "Reviewed",
+    "peek": "CAC had outpaced LTV for three straight quarters, growth was funded rather than earned.",
+    "pain": "Paid acquisition scaled faster than retention could support it; every new cohort paid back slower than the last.",
+    "fix": "Rebuilt the growth model around a retention-first flywheel, reallocating spend from acquisition to a first-90-days experience.",
+    "metric": "CAC payback: 14mo → 6mo",
+    "attachments": [
+      {
+        "type": "pdf",
+        "label": "Full report",
+        "href": "files/case-01/report.pdf"
+      },
+      {
+        "type": "ppt",
+        "label": "Board deck",
+        "href": "files/case-01/deck.pptx"
+      },
+      {
+        "type": "url",
+        "label": "Company site",
+        "href": "https://example.com"
+      }
+    ]
+  },
+  {
+    "tab": "Case 02 / Fintech",
+    "no": "02",
+    "title": "Neobank / Deposits App",
+    "stamp": "Closed",
+    "peek": "Deposits were growing, but 70% of new users churned before their third month.",
+    "pain": "Onboarding optimized for account creation, not for the moment a user actually felt the product’s value.",
+    "fix": "Redesigned onboarding around a single early activation moment, cutting time-to-value from nine days to under one.",
+    "metric": "90-day retention: up 2.3×"
+  },
+  {
+    "tab": "Case 03 / B2B SaaS",
+    "no": "03",
+    "title": "Mid-Market B2B SaaS",
+    "stamp": "In Review",
+    "peek": "The sales cycle stretched to nine months as buying committees grew from two to six.",
+    "pain": "Reps were re-explaining value to every new stakeholder instead of arming the champion to sell internally.",
+    "fix": "Built a champion-enablement kit: a one-page internal pitch the buyer could forward without the rep in the room.",
+    "metric": "Sales cycle: 9mo → 5mo"
+  },
+  {
+    "tab": "Case 04 / Manufacturing",
+    "no": "04",
+    "title": "Legacy Industrial Manufacturer",
+    "stamp": "Reviewed",
+    "peek": "Margins compressed 400bps as private-label competitors undercut on price alone.",
+    "pain": "Competing on price against players with structurally lower costs was a fight the business couldn’t win.",
+    "fix": "Repositioned around a premium service tier, with guaranteed lead times and on-site support that competitors couldn’t match.",
+    "metric": "Gross margin: +310bps"
+  },
+  {
+    "tab": "Case05/ trial",
+    "no": "05",
+    "title": "ttt",
+    "stamp": "ttt",
+    "peek": "ttt",
+    "pain": "ttt",
+    "fix": "",
+    "metric": "9000",
+    "attachments": []
+  }
+]
