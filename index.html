@@ -633,23 +633,39 @@
   }
 
   async function ghPutFile(filePath, base64Content, message, cfg){
-    const existing = await ghGetFile(filePath, cfg);
-    const payload = {
-      message,
-      content: base64Content,
-      branch: cfg.branch
+    const attempt = async () => {
+      const existing = await ghGetFile(filePath, cfg);
+      const payload = {
+        message,
+        content: base64Content,
+        branch: cfg.branch
+      };
+      if(existing && existing.sha) payload.sha = existing.sha;
+      return await ghApi(`contents/${filePath}`, cfg, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
     };
-    if(existing && existing.sha) payload.sha = existing.sha;
-    return await ghApi(`contents/${filePath}`, cfg, {
-      method: 'PUT',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload)
-    });
+    try{
+      return await attempt();
+    }catch(e){
+      // Stale sha (e.g. two commits fired close together) — refetch and retry once.
+      if(/does not match|sha/i.test(e.message)){
+        return await attempt();
+      }
+      throw e;
+    }
+  }
+
+  function setButtonsBusy(ids, busy){
+    ids.forEach(id => { document.getElementById(id).disabled = busy; });
   }
 
   document.getElementById('gh-load').addEventListener('click', async () => {
     const cfg = ghConfig();
     if(!ghReady(cfg)){ ghToast('Fill in repo + PAT first.', 'err'); return; }
+    setButtonsBusy(['gh-load','gh-commit','gh-save-config'], true);
     ghToast('Loading…');
     try{
       const file = await ghGetFile(cfg.dataPath, cfg);
@@ -661,23 +677,27 @@
       renderFolders();
       ghToast(`Loaded ${data.length} cases from ${cfg.dataPath}.`, 'ok');
     }catch(e){ ghToast('Load failed: ' + e.message, 'err'); }
+    finally{ setButtonsBusy(['gh-load','gh-commit','gh-save-config'], false); }
   });
 
   document.getElementById('gh-commit').addEventListener('click', async () => {
     const cfg = ghConfig();
     if(!ghReady(cfg)){ ghToast('Fill in repo + PAT first.', 'err'); return; }
+    setButtonsBusy(['gh-load','gh-commit','gh-save-config'], true);
     ghToast('Committing…');
     try{
       const content = b64EncodeUnicode(JSON.stringify(CASES, null, 2));
       await ghPutFile(cfg.dataPath, content, `Update case data (${CASES.length} cases)`, cfg);
       ghToast(`Committed ${CASES.length} cases to ${cfg.dataPath}. Live for visitors once SITE_CONFIG points here.`, 'ok');
     }catch(e){ ghToast('Commit failed: ' + e.message, 'err'); }
+    finally{ setButtonsBusy(['gh-load','gh-commit','gh-save-config'], false); }
   });
 
   document.getElementById('gh-save-config').addEventListener('click', async () => {
     const cfg = ghConfig();
     if(!ghReady(cfg)){ ghToast('Fill in repo + PAT first.', 'err'); return; }
     const pagePath = document.getElementById('gh-pagepath').value.trim() || 'index.html';
+    setButtonsBusy(['gh-load','gh-commit','gh-save-config'], true);
     ghToast('Reading current page file…');
     try{
       const file = await ghGetFile(pagePath, cfg);
@@ -698,6 +718,7 @@
       await ghPutFile(pagePath, content, 'Wire SITE_CONFIG to live GitHub data source', cfg);
       ghToast(`Done. ${pagePath} now auto-loads ${cfg.dataPath} for every visitor — no PAT needed.`, 'ok');
     }catch(e){ ghToast('Save failed: ' + e.message, 'err'); }
+    finally{ setButtonsBusy(['gh-load','gh-commit','gh-save-config'], false); }
   });
 
   // ---------- attachment builder (staged list for the case currently being added) ----------
@@ -751,6 +772,7 @@
     const input = document.getElementById('a-file');
     const file = input.files[0];
     if(!file){ toast('Choose a file to upload first.', 'err'); return; }
+    setButtonsBusy(['gh-load','gh-commit','gh-save-config','upload-attachment'], true);
     toast('Uploading ' + file.name + '…');
     try{
       const base64 = await fileToBase64(file);
@@ -764,6 +786,7 @@
       input.value = '';
       toast('Uploaded. Link ready — copy it into NotebookLM whenever you like.', 'ok');
     }catch(e){ toast('Upload failed: ' + e.message, 'err'); }
+    finally{ setButtonsBusy(['gh-load','gh-commit','gh-save-config','upload-attachment'], false); }
   });
 
   document.getElementById('add-case').addEventListener('click', () => {
