@@ -27,16 +27,6 @@
     ]
   },
   {
-    "tab": "Case 02 / Fintech",
-    "no": "02",
-    "title": "Neobank / Deposits App",
-    "stamp": "Closed",
-    "peek": "Deposits were growing, but 70% of new users churned before their third month.",
-    "pain": "Onboarding optimized for account creation, not for the moment a user actually felt the product’s value.",
-    "fix": "Redesigned onboarding around a single early activation moment, cutting time-to-value from nine days to under one.",
-    "metric": "90-day retention: up 2.3×"
-  },
-  {
     "tab": "Case 03 / B2B SaaS",
     "no": "03",
     "title": "Mid-Market B2B SaaS",
@@ -55,22 +45,5 @@
     "pain": "Competing on price against players with structurally lower costs was a fight the business couldn’t win.",
     "fix": "Repositioned around a premium service tier, with guaranteed lead times and on-site support that competitors couldn’t match.",
     "metric": "Gross margin: +310bps"
-  },
-  {
-    "tab": "Industry",
-    "no": "05",
-    "title": "lallalala",
-    "stamp": "lalalalala",
-    "peek": "",
-    "pain": "lalalalal",
-    "fix": "",
-    "metric": "0009999",
-    "attachments": [
-      {
-        "type": "pdf",
-        "label": "sample_annual_report.pdf",
-        "href": "https://raw.githubusercontent.com/meeth10/Case_book/main/files/uploads/1788123272715-sample_annual_report.pdf"
-      }
-    ]
   }
 ]
