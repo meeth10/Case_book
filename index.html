@@ -672,7 +672,7 @@
   }
 
   async function ghPutFile(filePath, base64Content, message, cfg){
-    const attempt = async () => {
+    async function attempt(triesLeft){
       const existing = await ghGetFile(filePath, cfg);
       const payload = {
         message,
@@ -680,21 +680,26 @@
         branch: cfg.branch
       };
       if(existing && existing.sha) payload.sha = existing.sha;
-      return await ghApi(`contents/${filePath}`, cfg, {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload)
-      });
-    };
-    try{
-      return await attempt();
-    }catch(e){
-      // Stale sha (e.g. two commits fired close together) — refetch and retry once.
-      if(/does not match|sha/i.test(e.message)){
-        return await attempt();
+      try{
+        return await ghApi(`contents/${filePath}`, cfg, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+      }catch(e){
+        // Stale sha — usually two commits landing close together (e.g. this file
+        // open in more than one tab). Refetch and retry a few times before giving up.
+        if(triesLeft > 0 && /does not match|sha/i.test(e.message)){
+          await new Promise(r => setTimeout(r, 250 * (4 - triesLeft)));
+          return attempt(triesLeft - 1);
+        }
+        if(/does not match|sha/i.test(e.message)){
+          throw new Error(e.message + ' — this usually means the studio is open in another tab/browser and committed at the same time. Close other tabs editing this file and try again.');
+        }
+        throw e;
       }
-      throw e;
     }
+    return attempt(3);
   }
 
   async function ghDeleteFile(filePath, cfg, message){
