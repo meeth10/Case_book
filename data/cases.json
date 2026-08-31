@@ -27,27 +27,6 @@
     ]
   },
   {
-    "tab": "Case 02 / Fintech",
-    "no": "02",
-    "title": "Neobank / Deposits App",
-    "stamp": "Closed",
-    "peek": "Deposits were growing, but 70% of new users churned before their third month.",
-    "pain": "Onboarding optimized for account creation, not for the moment a user actually felt the product’s value.",
-    "fix": "Redesigned onboarding around a single early activation moment, cutting time-to-value from nine days to under one.",
-    "metric": "90-day retention: up 2.3×"
-  },
-  {
-    "tab": "Case08",
-    "no": "03",
-    "title": "LALALALA",
-    "stamp": "LALALA",
-    "peek": "ALALA",
-    "pain": "LALAAL",
-    "fix": "LALALA",
-    "metric": "",
-    "attachments": []
-  },
-  {
     "tab": "Case089/Cool-AID man",
     "no": "04",
     "title": "Black Coffee",
