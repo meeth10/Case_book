@@ -46,5 +46,22 @@
     "fix": "LALALA",
     "metric": "",
     "attachments": []
+  },
+  {
+    "tab": "Case089/Cool-AID man",
+    "no": "04",
+    "title": "Black Coffee",
+    "stamp": "Closed",
+    "peek": "Coffeee",
+    "pain": "No sales",
+    "fix": "Sales",
+    "metric": "+90",
+    "attachments": [
+      {
+        "type": "url",
+        "label": "Sample",
+        "href": "https://stratechery.com/2015/end-trickle-tech/"
+      }
+    ]
   }
 ]
