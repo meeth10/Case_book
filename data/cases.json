@@ -1,7 +1,7 @@
 [
   {
-    "id": "case-001",
-    "no": "01",
+    "id": "case-1788169448804",
+    "no": "02",
     "tab": "Case 02",
     "title": "nfnfn",
     "stamp": "Draft",
@@ -9,22 +9,6 @@
     "pain": "",
     "fix": "",
     "metric": "",
-    "attachments": [
-      {
-        "type": "pdf",
-        "label": "Full report",
-        "href": "files/case-01/report.pdf"
-      },
-      {
-        "type": "ppt",
-        "label": "Board deck",
-        "href": "files/case-01/deck.pptx"
-      },
-      {
-        "type": "url",
-        "label": "Company site",
-        "href": "https://example.com"
-      }
-    ]
+    "attachments": []
   }
 ]
