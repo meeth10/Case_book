@@ -738,7 +738,6 @@
         headers: {
           'Authorization': `Bearer ${cfg.pat}`,
           'Accept': 'application/vnd.github+json',
-          'Cache-Control': 'no-cache',
           ...(options && options.headers ? options.headers : {})
         }
       });
