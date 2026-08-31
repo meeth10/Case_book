@@ -1,0 +1,1 @@
+Temporary marker — Studio route is configured in vercel.json and index.html.
