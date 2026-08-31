@@ -185,7 +185,7 @@
   #admin .existing-attach-row span{ overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
   #admin .existing-attach-row button{ padding:0.1rem 0.4rem; font-size:0.56rem; border-color: var(--stamp); color: var(--stamp); flex:0 0 auto; }
   #admin .existing-attach-row button:hover{ background: var(--stamp); color: var(--paper); }
-  #admin .toast{ margin-top:0.8rem; font-size:0.74rem; color: var(--gold-bright); font-family:'IBM Plex Mono', monospace; min-height:2.2em; line-height:1.4; }
+  #admin .toast{ margin-top:0.8rem; font-size:0.74rem; color: var(--gold-bright); font-family:'IBM Plex Mono', monospace; min-height:2.2em; line-height:1.4; white-space:pre-wrap; }
   #admin .toast.err{ color: var(--stamp); }
   #admin .toast.ok{ color: var(--ok); }
   #admin .hint{ font-size:0.72rem; color:var(--muted); margin-top:1.6rem; line-height:1.5; }
@@ -200,8 +200,15 @@
   #admin .attach-chip button:hover{ background: var(--stamp); color: var(--paper); }
   #admin .gh-section{ margin-top:0.6rem; padding-top:1rem; border-top:1px solid var(--line); }
   #admin .gh-section h4{ font-family:'IBM Plex Mono', monospace; font-size:0.7rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--paper); margin-bottom:0.2rem; }
-  #admin .gh-status{ font-family:'IBM Plex Mono', monospace; font-size:0.66rem; color:var(--muted); margin-top:0.3rem; }
+  #admin .gh-status{ font-family:'IBM Plex Mono', monospace; font-size:0.66rem; color:var(--muted); margin-top:0.3rem; white-space:pre-wrap; }
   #admin .gh-status.connected{ color: var(--ok); }
+  #admin .gh-status.warn{ color: var(--stamp); }
+  #admin .pat-row{ display:flex; gap:0.5rem; align-items:center; }
+  #admin .pat-row input{ flex:1; }
+  #admin .pat-row button{ flex:0 0 auto; padding:0.55rem 0.6rem; font-size:0.6rem; }
+  #admin .badge{ display:inline-block; font-family:'IBM Plex Mono', monospace; font-size:0.6rem; letter-spacing:0.06em; text-transform:uppercase; padding:0.15rem 0.45rem; border-radius:4px; border:1px solid var(--ok); color:var(--ok); margin-left:0.5rem; }
+  #admin .spinner{ display:inline-block; width:0.7em; height:0.7em; border:2px solid rgba(231,190,127,0.3); border-top-color: var(--gold-bright); border-radius:50%; animation: spin 0.7s linear infinite; margin-right:0.4em; vertical-align: -0.05em; }
+  @keyframes spin{ to{ transform: rotate(360deg); } }
 
   @media (max-width: 640px){
     .steps{ grid-template-columns: 1fr; }
@@ -223,7 +230,7 @@
       <span>The&nbsp;Case&nbsp;File</span>
     </div>
     <div class="file-count">
-      <b id="fileCountNum">04</b>
+      <b id="fileCountNum">00</b>
       <span class="label" style="margin:0;">Active files</span>
     </div>
   </nav>
@@ -286,8 +293,8 @@
   <p class="admin-sub">Not visible on the public site or linked anywhere. Visit this page's URL with <b>#studio</b> on the end to open it again.</p>
 
   <div class="gh-section">
-    <h4>GitHub connection</h4>
-    <p class="admin-sub" style="margin-bottom:0.8rem;">Your PAT stays in this tab's memory only — it is never written to the page, never saved to disk, and is gone on reload. Use a fine-grained token scoped to this one repo only, with "Contents: Read and write" permission.</p>
+    <h4>GitHub connection <span class="badge" id="pat-saved-badge" style="display:none;">Remembered</span></h4>
+    <p class="admin-sub" style="margin-bottom:0.8rem;">Your token is saved <b>only in this browser's local storage</b> so you don't have to re-enter it — it is never written into the page itself or committed anywhere. Anyone with access to this browser/device could read it from storage, so use a fine-grained token scoped to this one repo only, with "Contents: Read and write" permission (nothing broader).</p>
     <label>Repo (owner/name)</label>
     <input id="gh-repo" placeholder="yourname/case-file-site" value="meeth10/Case_book">
     <label>Branch</label>
@@ -295,10 +302,14 @@
     <label>Data file path</label>
     <input id="gh-datapath" placeholder="data/cases.json" value="data/cases.json">
     <label>Personal Access Token</label>
-    <input id="gh-pat" type="password" placeholder="github_pat_...">
+    <div class="pat-row">
+      <input id="gh-pat" type="password" placeholder="github_pat_...">
+      <button id="gh-forget-pat" title="Clear the saved token from this browser">Forget</button>
+    </div>
     <div class="row">
       <button id="gh-load">Load from repo</button>
       <button class="primary" id="gh-commit">Commit cases to repo</button>
+      <button id="gh-verify">Verify what's live</button>
     </div>
     <div class="gh-status" id="gh-status">Not connected — actions below stay local until you commit.</div>
     <div class="toast" id="gh-toast"></div>
@@ -356,7 +367,8 @@
   <p class="hint">
     <b>With a GitHub connection:</b> "Commit cases to repo" pushes the current record straight to <code>data/cases.json</code> in your repo. Every visitor's page then loads that file live — no manual redeploy needed. Uploaded attachments go to <code>files/uploads/…</code> in the same repo and get a permanent <code>raw.githubusercontent.com</code> link, which you can hand directly to NotebookLM (Google LM) as a source.<br><br>
     <b>Without one:</b> the site behaves as before — everything here previews live but resets on reload. "Copy data as code" gives you the CASES array to paste into this file by hand.<br><br>
-    <b>One-time setup:</b> click "Save this connection into the page" once — it wires your repo into the file that visitors actually load, so from then on the main screen shows everything you've committed (cases and uploaded files) without anyone needing a PAT.
+    <b>One-time setup:</b> click "Save this connection into the page" once — it wires your repo into the file that visitors actually load, so from then on the main screen shows everything you've committed (cases and uploaded files) without anyone needing a PAT.<br><br>
+    <b>"Verify what's live"</b> re-fetches <code>data/cases.json</code> straight from GitHub's raw CDN (bypassing your browser cache) and tells you exactly how many cases it finds and how old that copy might be. GitHub's raw CDN can take a minute or two to catch up after a commit — if verify shows the old count right after committing, wait ~60s and check again before assuming something's broken.
   </p>
 </div>
 
@@ -563,16 +575,68 @@
     const t = document.getElementById('toast');
     t.className = 'toast' + (kind ? ' '+kind : '');
     t.textContent = msg;
-    setTimeout(() => { if(t.textContent === msg) t.textContent = ''; }, 3200);
+    if(kind !== 'err') setTimeout(() => { if(t.textContent === msg) t.textContent = ''; }, 4200);
   }
   function ghToast(msg, kind){
     const t = document.getElementById('gh-toast');
     t.className = 'toast' + (kind ? ' '+kind : '');
     t.textContent = msg;
-    setTimeout(() => { if(t.textContent === msg) t.textContent = ''; }, 4200);
+    if(kind !== 'err') setTimeout(() => { if(t.textContent === msg) t.textContent = ''; }, 5200);
   }
 
-  // ============ GitHub connection (PAT kept in memory only, never persisted) ============
+  // Turn any thrown value / fetch failure into a readable string instead of "[object Object]"
+  function errText(e){
+    if(!e) return 'Unknown error';
+    if(e instanceof Error) return e.message;
+    if(typeof e === 'string') return e;
+    try{ return JSON.stringify(e); }catch(_){ return String(e); }
+  }
+
+  // ============ GitHub connection ============
+  // The PAT is persisted in this browser's localStorage so it only needs to be
+  // entered once. Everything else (repo/branch/path) is remembered the same way.
+  const LS_KEYS = { repo:'casebook_gh_repo', branch:'casebook_gh_branch', datapath:'casebook_gh_datapath', pagepath:'casebook_gh_pagepath', pat:'casebook_gh_pat' };
+
+  function loadSavedGhFields(){
+    try{
+      const repo = localStorage.getItem(LS_KEYS.repo);
+      const branch = localStorage.getItem(LS_KEYS.branch);
+      const datapath = localStorage.getItem(LS_KEYS.datapath);
+      const pagepath = localStorage.getItem(LS_KEYS.pagepath);
+      const pat = localStorage.getItem(LS_KEYS.pat);
+      if(repo) document.getElementById('gh-repo').value = repo;
+      if(branch) document.getElementById('gh-branch').value = branch;
+      if(datapath) document.getElementById('gh-datapath').value = datapath;
+      if(pagepath) document.getElementById('gh-pagepath').value = pagepath;
+      if(pat){
+        document.getElementById('gh-pat').value = pat;
+        document.getElementById('pat-saved-badge').style.display = 'inline-block';
+      }
+    }catch(e){ /* localStorage unavailable (private browsing etc) — fields just stay blank each time */ }
+  }
+
+  function persistGhFields(){
+    try{
+      localStorage.setItem(LS_KEYS.repo, document.getElementById('gh-repo').value.trim());
+      localStorage.setItem(LS_KEYS.branch, document.getElementById('gh-branch').value.trim());
+      localStorage.setItem(LS_KEYS.datapath, document.getElementById('gh-datapath').value.trim());
+      localStorage.setItem(LS_KEYS.pagepath, document.getElementById('gh-pagepath').value.trim());
+      const pat = document.getElementById('gh-pat').value.trim();
+      if(pat){
+        localStorage.setItem(LS_KEYS.pat, pat);
+        document.getElementById('pat-saved-badge').style.display = 'inline-block';
+      }
+    }catch(e){ /* ignore — storage may be unavailable */ }
+  }
+
+  document.getElementById('gh-forget-pat').addEventListener('click', () => {
+    try{ localStorage.removeItem(LS_KEYS.pat); }catch(e){}
+    document.getElementById('gh-pat').value = '';
+    document.getElementById('pat-saved-badge').style.display = 'none';
+    updateGhStatus();
+    ghToast('Token cleared from this browser.', 'ok');
+  });
+
   function ghConfig(){
     const repo = document.getElementById('gh-repo').value.trim();
     const [owner, name] = repo.split('/');
@@ -596,19 +660,19 @@
     const uploadBtn = document.getElementById('upload-attachment');
     if(ghReady(cfg)){
       status.textContent = `Ready to commit to ${cfg.owner}/${cfg.name} @ ${cfg.branch}`;
-      status.classList.add('connected');
+      status.className = 'gh-status connected';
       uploadBtn.disabled = false;
       checkGhRepoVisibility(cfg);
     } else {
       status.textContent = 'Not connected — fill in repo + PAT to load/commit/upload.';
-      status.classList.remove('connected');
+      status.className = 'gh-status';
       uploadBtn.disabled = true;
     }
   }
 
-  // Warns immediately if the typed repo is private or doesn't exist — the exact
-  // failure mode where a commit silently succeeds but the public page can never
-  // read it back without a token.
+  // Warns immediately if the typed repo is private, doesn't exist, or the PAT
+  // lacks write access — the exact failure modes that otherwise show up later as
+  // a confusing 403/404 in the middle of a commit.
   async function checkGhRepoVisibility(cfg){
     const myToken = ++ghVisibilityCheckToken;
     const status = document.getElementById('gh-status');
@@ -617,47 +681,76 @@
         headers: cfg.pat ? { 'Authorization': `Bearer ${cfg.pat}`, 'Accept': 'application/vnd.github+json' } : { 'Accept': 'application/vnd.github+json' }
       });
       if(myToken !== ghVisibilityCheckToken) return; // a newer check superseded this one
-      if(res.status === 404){
-        status.textContent = `⚠ ${cfg.owner}/${cfg.name} not found (wrong name, or private and your PAT can't see it).`;
-        status.classList.remove('connected');
+      if(res.status === 401){
+        status.textContent = `⚠ GitHub rejected this token (401). It may be expired, revoked, or mistyped — generate a new fine-grained PAT for this repo.`;
+        status.className = 'gh-status warn';
         return;
       }
-      if(!res.ok) return; // rate-limited or transient — don't alarm over it
+      if(res.status === 404){
+        status.textContent = `⚠ ${cfg.owner}/${cfg.name} not found (wrong name, or private and your PAT can't see it).`;
+        status.className = 'gh-status warn';
+        return;
+      }
+      if(!res.ok){
+        status.textContent = `⚠ GitHub API returned ${res.status} while checking the repo. It may still work — try Load/Commit.`;
+        status.className = 'gh-status warn';
+        return;
+      }
       const data = await res.json();
       if(myToken !== ghVisibilityCheckToken) return;
-      if(data.private){
+      const perms = data.permissions || {};
+      if(data.private && !cfg.pat){
+        status.textContent = `⚠ ${cfg.owner}/${cfg.name} is PRIVATE — visitors without a token can't read data from it.`;
+        status.className = 'gh-status warn';
+      } else if(cfg.pat && perms.push === false){
+        status.textContent = `⚠ This token can read ${cfg.owner}/${cfg.name} but not write to it. Check the PAT's "Contents: Read and write" permission.`;
+        status.className = 'gh-status warn';
+      } else if(data.private){
         status.textContent = `⚠ ${cfg.owner}/${cfg.name} is PRIVATE — visitors without a token can't read data from it. Make it public, or the main screen will keep showing the fallback cases.`;
-        status.classList.remove('connected');
+        status.className = 'gh-status warn';
       } else {
         status.textContent = `Ready to commit to ${cfg.owner}/${cfg.name} @ ${cfg.branch} (public — visitors can read it).`;
-        status.classList.add('connected');
+        status.className = 'gh-status connected';
       }
-    }catch(e){ /* network hiccup — leave the optimistic status in place */ }
+    }catch(e){
+      if(myToken !== ghVisibilityCheckToken) return;
+      status.textContent = `⚠ Could not reach GitHub to verify the repo (${errText(e)}). Check your connection.`;
+      status.className = 'gh-status warn';
+    }
   }
 
-  ['gh-repo','gh-branch','gh-datapath','gh-pat'].forEach(id => {
-    document.getElementById(id).addEventListener('input', updateGhStatus);
+  ['gh-repo','gh-branch','gh-datapath','gh-pagepath','gh-pat'].forEach(id => {
+    document.getElementById(id).addEventListener('input', () => { persistGhFields(); updateGhStatus(); });
   });
-  updateGhStatus();
 
   function b64EncodeUnicode(str){
     return btoa(unescape(encodeURIComponent(str)));
   }
 
   async function ghApi(path, cfg, options){
-    const res = await fetch(`https://api.github.com/repos/${cfg.owner}/${cfg.name}/${path}`, {
-      ...options,
-      headers: {
-        'Authorization': `Bearer ${cfg.pat}`,
-        'Accept': 'application/vnd.github+json',
-        ...(options && options.headers ? options.headers : {})
-      }
-    });
+    let res;
+    try{
+      res = await fetch(`https://api.github.com/repos/${cfg.owner}/${cfg.name}/${path}`, {
+        ...options,
+        headers: {
+          'Authorization': `Bearer ${cfg.pat}`,
+          'Accept': 'application/vnd.github+json',
+          ...(options && options.headers ? options.headers : {})
+        }
+      });
+    }catch(networkErr){
+      throw new Error(`Network error reaching GitHub (${errText(networkErr)}). Check your connection and try again.`);
+    }
     let body = null;
     try{ body = await res.json(); }catch(e){ /* no body */ }
     if(!res.ok){
       const msg = (body && body.message) || `${res.status} ${res.statusText}`;
-      throw new Error(msg);
+      const suffix = res.status === 401 ? ' — token is invalid or expired.'
+        : res.status === 403 ? ' — token may lack write permission, or you hit a rate limit.'
+        : res.status === 404 ? ' — repo, branch, or file path not found.'
+        : res.status === 409 || res.status === 422 ? ' — the file changed since you loaded it; refreshing and retrying.'
+        : '';
+      throw new Error(`GitHub API ${res.status}: ${msg}${suffix}`);
     }
     return body;
   }
@@ -666,7 +759,7 @@
     try{
       return await ghApi(`contents/${filePath}?ref=${cfg.branch}`, cfg, { method:'GET' });
     }catch(e){
-      if(String(e.message).match(/Not Found/i)) return null;
+      if(String(e.message).match(/404/)) return null;
       throw e;
     }
   }
@@ -689,12 +782,12 @@
       }catch(e){
         // Stale sha — usually two commits landing close together (e.g. this file
         // open in more than one tab). Refetch and retry a few times before giving up.
-        if(triesLeft > 0 && /does not match|sha/i.test(e.message)){
-          await new Promise(r => setTimeout(r, 250 * (4 - triesLeft)));
+        if(triesLeft > 0 && /409|422|does not match|sha/i.test(e.message)){
+          await new Promise(r => setTimeout(r, 350 * (4 - triesLeft)));
           return attempt(triesLeft - 1);
         }
         if(/does not match|sha/i.test(e.message)){
-          throw new Error(e.message + ' — this usually means the studio is open in another tab/browser and committed at the same time. Close other tabs editing this file and try again.');
+          throw new Error(e.message + ' Still failing after retries — the studio may be open in another tab/browser committing at the same time. Close other tabs editing this file and try again.');
         }
         throw e;
       }
@@ -703,14 +796,26 @@
   }
 
   async function ghDeleteFile(filePath, cfg, message){
-    const existing = await ghGetFile(filePath, cfg);
-    if(!existing) return false; // nothing at that path — caller should know it wasn't found
-    await ghApi(`contents/${filePath}`, cfg, {
-      method: 'DELETE',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ message, sha: existing.sha, branch: cfg.branch })
-    });
-    return true;
+    async function attempt(triesLeft){
+      const existing = await ghGetFile(filePath, cfg);
+      if(!existing) return false; // nothing at that path — caller should know it wasn't found
+      try{
+        await ghApi(`contents/${filePath}`, cfg, {
+          method: 'DELETE',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ message, sha: existing.sha, branch: cfg.branch })
+        });
+        return true;
+      }catch(e){
+        // Same stale-sha race as ghPutFile can happen on delete — refetch the sha and retry.
+        if(triesLeft > 0 && /409|422|does not match|sha/i.test(e.message)){
+          await new Promise(r => setTimeout(r, 350 * (4 - triesLeft)));
+          return attempt(triesLeft - 1);
+        }
+        throw new Error(`Could not delete ${filePath}: ${errText(e)}`);
+      }
+    }
+    return attempt(3);
   }
 
   // An attachment counts as "ours to delete" only if its URL actually points into
@@ -721,6 +826,27 @@
     return href && href.startsWith(prefix) ? href.slice(prefix.length) : null;
   }
 
+  // Guards against committing something that would corrupt data.json for every
+  // visitor — every case must at least be a plain object with a title/tab, and
+  // attachments (if present) must be an array of {type,label,href} objects.
+  function validateCases(cases){
+    if(!Array.isArray(cases)) return 'Case data is not a list.';
+    for(let i=0;i<cases.length;i++){
+      const c = cases[i];
+      if(!c || typeof c !== 'object') return `Case #${i+1} is not a valid record.`;
+      if(!c.title && !c.tab) return `Case #${i+1} has no title or tab label.`;
+      if(c.attachments !== undefined){
+        if(!Array.isArray(c.attachments)) return `Case #${i+1}'s attachments must be a list.`;
+        for(const a of c.attachments){
+          if(!a || typeof a.href !== 'string' || typeof a.label !== 'string'){
+            return `Case #${i+1} has a malformed attachment.`;
+          }
+        }
+      }
+    }
+    return null; // valid
+  }
+
   function setButtonsBusy(ids, busy){
     ids.forEach(id => { document.getElementById(id).disabled = busy; });
   }
@@ -728,39 +854,71 @@
   document.getElementById('gh-load').addEventListener('click', async () => {
     const cfg = ghConfig();
     if(!ghReady(cfg)){ ghToast('Fill in repo + PAT first.', 'err'); return; }
-    setButtonsBusy(['gh-load','gh-commit','gh-save-config'], true);
+    setButtonsBusy(['gh-load','gh-commit','gh-save-config','gh-verify'], true);
     ghToast('Loading…');
     try{
       const file = await ghGetFile(cfg.dataPath, cfg);
-      if(!file){ ghToast('No data file there yet — commit once to create it.', 'err'); return; }
+      if(!file){ ghToast('No data file there yet at ' + cfg.dataPath + ' — commit once to create it.', 'err'); return; }
       const json = decodeURIComponent(escape(atob(file.content.replace(/\n/g,''))));
-      const data = JSON.parse(json);
-      if(!Array.isArray(data)) throw new Error('Data file is not a case array.');
+      let data;
+      try{ data = JSON.parse(json); }
+      catch(parseErr){ ghToast('The file at ' + cfg.dataPath + ' is not valid JSON right now (' + errText(parseErr) + '). Nothing was changed locally.', 'err'); return; }
+      const invalidReason = validateCases(data);
+      if(invalidReason){ ghToast('Loaded data looks malformed: ' + invalidReason + ' Nothing was changed locally.', 'err'); return; }
       CASES = data;
       renderFolders();
       ghToast(`Loaded ${data.length} cases from ${cfg.dataPath}.`, 'ok');
-    }catch(e){ ghToast('Load failed: ' + e.message, 'err'); }
-    finally{ setButtonsBusy(['gh-load','gh-commit','gh-save-config'], false); }
+    }catch(e){ ghToast('Load failed: ' + errText(e), 'err'); }
+    finally{ setButtonsBusy(['gh-load','gh-commit','gh-save-config','gh-verify'], false); }
   });
 
   document.getElementById('gh-commit').addEventListener('click', async () => {
     const cfg = ghConfig();
     if(!ghReady(cfg)){ ghToast('Fill in repo + PAT first.', 'err'); return; }
-    setButtonsBusy(['gh-load','gh-commit','gh-save-config'], true);
+    const invalidReason = validateCases(CASES);
+    if(invalidReason){ ghToast('Refusing to commit — ' + invalidReason, 'err'); return; }
+    setButtonsBusy(['gh-load','gh-commit','gh-save-config','gh-verify'], true);
     ghToast('Committing…');
     try{
       const content = b64EncodeUnicode(JSON.stringify(CASES, null, 2));
       await ghPutFile(cfg.dataPath, content, `Update case data (${CASES.length} cases)`, cfg);
-      ghToast(`Committed ${CASES.length} cases to ${cfg.dataPath}. Live for visitors once SITE_CONFIG points here.`, 'ok');
-    }catch(e){ ghToast('Commit failed: ' + e.message, 'err'); }
-    finally{ setButtonsBusy(['gh-load','gh-commit','gh-save-config'], false); }
+      ghToast(`Committed ${CASES.length} cases to ${cfg.dataPath}. Click "Verify what's live" in ~30-60s to confirm visitors see it.`, 'ok');
+    }catch(e){ ghToast('Commit failed: ' + errText(e), 'err'); }
+    finally{ setButtonsBusy(['gh-load','gh-commit','gh-save-config','gh-verify'], false); }
+  });
+
+  document.getElementById('gh-verify').addEventListener('click', async () => {
+    const cfg = ghConfig();
+    if(!cfg.owner || !cfg.name){ ghToast('Fill in the repo first.', 'err'); return; }
+    setButtonsBusy(['gh-load','gh-commit','gh-save-config','gh-verify'], true);
+    ghToast('Fetching the public raw copy…');
+    try{
+      const url = `https://raw.githubusercontent.com/${cfg.owner}/${cfg.name}/${cfg.branch}/${cfg.dataPath}?_=${Date.now()}`;
+      const res = await fetch(url, { cache: 'no-store' });
+      if(!res.ok){
+        ghToast(`Nothing readable at that public URL yet (HTTP ${res.status}). If you just committed, GitHub's CDN can take a minute to catch up.`, 'err');
+        return;
+      }
+      const text = await res.text();
+      let data;
+      try{ data = JSON.parse(text); }
+      catch(e){ ghToast('That URL responded but is not valid JSON — the committed file may be corrupted.', 'err'); return; }
+      const localCount = CASES.length;
+      const liveCount = Array.isArray(data) ? data.length : 0;
+      if(liveCount === localCount){
+        ghToast(`Live and matching: ${liveCount} cases visible at the public URL, same as your local ${localCount}.`, 'ok');
+      } else {
+        ghToast(`Live shows ${liveCount} cases, your local view has ${localCount}. If you just committed, wait ~60s (GitHub's raw CDN) and check again — if it still doesn't match, click "Load from repo".`, 'err');
+      }
+    }catch(e){ ghToast('Verify failed: ' + errText(e), 'err'); }
+    finally{ setButtonsBusy(['gh-load','gh-commit','gh-save-config','gh-verify'], false); }
   });
 
   document.getElementById('gh-save-config').addEventListener('click', async () => {
     const cfg = ghConfig();
     if(!ghReady(cfg)){ ghToast('Fill in repo + PAT first.', 'err'); return; }
     const pagePath = document.getElementById('gh-pagepath').value.trim() || 'index.html';
-    setButtonsBusy(['gh-load','gh-commit','gh-save-config'], true);
+    setButtonsBusy(['gh-load','gh-commit','gh-save-config','gh-verify'], true);
     ghToast('Reading current page file…');
     try{
       const file = await ghGetFile(pagePath, cfg);
@@ -780,8 +938,8 @@
       const content = b64EncodeUnicode(html);
       await ghPutFile(pagePath, content, 'Wire SITE_CONFIG to live GitHub data source', cfg);
       ghToast(`Done. ${pagePath} now auto-loads ${cfg.dataPath} for every visitor — no PAT needed.`, 'ok');
-    }catch(e){ ghToast('Save failed: ' + e.message, 'err'); }
-    finally{ setButtonsBusy(['gh-load','gh-commit','gh-save-config'], false); }
+    }catch(e){ ghToast('Save failed: ' + errText(e), 'err'); }
+    finally{ setButtonsBusy(['gh-load','gh-commit','gh-save-config','gh-verify'], false); }
   });
 
   // ---------- attachment builder (staged list for the case currently being added) ----------
@@ -804,12 +962,13 @@
         if(filePath && ghReady(cfg)){
           const ok = confirm(`This file (${filePath}) was already uploaded to GitHub. Delete it from the repo too?`);
           if(ok){
+            btn.disabled = true;
             toast('Deleting uploaded file…');
             try{
               const found = await ghDeleteFile(filePath, cfg, `Remove unused upload: ${attach.label}`);
-              toast(found ? 'Deleted.' : `No file found at ${filePath} — skipped.`, found ? 'ok' : 'err');
+              toast(found ? 'Deleted from GitHub.' : `No file found at ${filePath} — nothing to delete there.`, found ? 'ok' : 'err');
             }
-            catch(e){ toast('Could not delete: ' + e.message, 'err'); }
+            catch(e){ toast('Could not delete: ' + errText(e), 'err'); return; }
           }
         }
         pendingAttachments.splice(idx, 1);
@@ -850,7 +1009,8 @@
     const input = document.getElementById('a-file');
     const file = input.files[0];
     if(!file){ toast('Choose a file to upload first.', 'err'); return; }
-    setButtonsBusy(['gh-load','gh-commit','gh-save-config','upload-attachment'], true);
+    if(file.size > 20 * 1024 * 1024){ toast(`"${file.name}" is ${(file.size/1024/1024).toFixed(1)}MB — GitHub's Contents API rejects files over ~25MB (and base64 inflates it ~33% further). Use a smaller file or a link instead.`, 'err'); return; }
+    setButtonsBusy(['gh-load','gh-commit','gh-save-config','gh-verify','upload-attachment'], true);
     toast('Uploading ' + file.name + '…');
     try{
       const base64 = await fileToBase64(file);
@@ -863,8 +1023,8 @@
       renderPendingAttachments();
       input.value = '';
       toast('Uploaded. Link ready — copy it into NotebookLM whenever you like.', 'ok');
-    }catch(e){ toast('Upload failed: ' + e.message, 'err'); }
-    finally{ setButtonsBusy(['gh-load','gh-commit','gh-save-config','upload-attachment'], false); }
+    }catch(e){ toast('Upload failed: ' + errText(e), 'err'); }
+    finally{ setButtonsBusy(['gh-load','gh-commit','gh-save-config','gh-verify','upload-attachment'], false); }
   });
 
   document.getElementById('add-case').addEventListener('click', () => {
@@ -932,7 +1092,7 @@
               const found = await ghDeleteFile(filePath, cfg, `Remove attachment: ${attach.label}`);
               toast(found ? 'Deleted from GitHub.' : `No file found at ${filePath} — nothing to delete there.`, found ? 'ok' : 'err');
             }
-            catch(e){ toast('Could not delete from GitHub: ' + e.message, 'err'); }
+            catch(e){ toast('Could not delete from GitHub: ' + errText(e), 'err'); return; }
           }
         }
 
@@ -961,7 +1121,7 @@
                 const found = await ghDeleteFile(p, cfg, `Remove attachment for deleted case: ${removed.title || removed.tab}`);
                 if(!found) toast(`No file found at ${p} — skipped.`, 'err');
               }
-              catch(e){ toast(`Could not delete ${p}: ${e.message}`, 'err'); }
+              catch(e){ toast(`Could not delete ${p}: ${errText(e)}`, 'err'); }
             }
           }
         }
@@ -973,6 +1133,8 @@
     });
   }
 
+  loadSavedGhFields();
+  updateGhStatus();
   loadInitialCases();
 </script>
 
