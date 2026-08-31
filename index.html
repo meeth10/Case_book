@@ -732,9 +732,13 @@
     try{
       res = await fetch(`https://api.github.com/repos/${cfg.owner}/${cfg.name}/${path}`, {
         ...options,
+        cache: 'no-store', // GitHub's Contents API sets a short max-age on GET responses; without
+                            // this, the browser can hand back a stale cached SHA on retry, which
+                            // makes every retry fail with the exact same "does not match" error.
         headers: {
           'Authorization': `Bearer ${cfg.pat}`,
           'Accept': 'application/vnd.github+json',
+          'Cache-Control': 'no-cache',
           ...(options && options.headers ? options.headers : {})
         }
       });
@@ -757,7 +761,10 @@
 
   async function ghGetFile(filePath, cfg){
     try{
-      return await ghApi(`contents/${filePath}?ref=${cfg.branch}`, cfg, { method:'GET' });
+      // Cache-busting query param as a second layer on top of cache:'no-store' —
+      // some browser extensions / corporate proxies cache GET requests regardless
+      // of fetch cache mode, and a varying URL defeats that too.
+      return await ghApi(`contents/${filePath}?ref=${cfg.branch}&_=${Date.now()}`, cfg, { method:'GET' });
     }catch(e){
       if(String(e.message).match(/404/)) return null;
       throw e;
@@ -783,11 +790,11 @@
         // Stale sha — usually two commits landing close together (e.g. this file
         // open in more than one tab). Refetch and retry a few times before giving up.
         if(triesLeft > 0 && /409|422|does not match|sha/i.test(e.message)){
-          await new Promise(r => setTimeout(r, 350 * (4 - triesLeft)));
+          await new Promise(r => setTimeout(r, 400 * (4 - triesLeft)));
           return attempt(triesLeft - 1);
         }
         if(/does not match|sha/i.test(e.message)){
-          throw new Error(e.message + ' Still failing after retries — the studio may be open in another tab/browser committing at the same time. Close other tabs editing this file and try again.');
+          throw new Error(e.message + ' Still failing after 3 fresh reads — this now points to a real concurrent edit (another tab, another browser, or someone else with the PAT) rather than a caching issue. Close other tabs editing this file, or click "Load from repo" to pull the latest version first.');
         }
         throw e;
       }
@@ -809,7 +816,7 @@
       }catch(e){
         // Same stale-sha race as ghPutFile can happen on delete — refetch the sha and retry.
         if(triesLeft > 0 && /409|422|does not match|sha/i.test(e.message)){
-          await new Promise(r => setTimeout(r, 350 * (4 - triesLeft)));
+          await new Promise(r => setTimeout(r, 400 * (4 - triesLeft)));
           return attempt(triesLeft - 1);
         }
         throw new Error(`Could not delete ${filePath}: ${errText(e)}`);
