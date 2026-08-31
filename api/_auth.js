@@ -19,7 +19,7 @@ function isAuthenticated(req) {
   if (token.length !== expected.length) return false;
   return crypto.timingSafeEqual(Buffer.from(token), Buffer.from(expected));
 }
-function setSession(res) { res.setHeader('Set-Cookie', `casebook_session=${encodeURIComponent(sessionValue())}; Path=/; HttpOnly; Secure; SameSite=Lax; Max-Age=604800`); }
+function setSession(res) { res.setHeader('Set-Cookie', `casebook_session=${encodeURIComponent(sessionValue())}; Path=/; HttpOnly; Secure; SameSite=Lax; Max-Age=2592000`); }
 function clearSession(res) { res.setHeader('Set-Cookie', 'casebook_session=; Path=/; HttpOnly; Secure; SameSite=Lax; Max-Age=0'); }
 function requireAuth(req, res) { if (isAuthenticated(req)) return true; res.statusCode=401; res.setHeader('Content-Type','application/json'); res.end(JSON.stringify({error:'Unauthorized'})); return false; }
 module.exports={isAuthenticated,setSession,clearSession,requireAuth};
