@@ -2,13 +2,13 @@
   {
     "id": "case-001",
     "no": "01",
-    "tab": "Case 01 / Retail",
-    "title": "Direct-to-Consumer Retail Brand",
-    "stamp": "Reviewed",
-    "peek": "CAC had outpaced LTV for three straight quarters, growth was funded rather than earned.",
-    "pain": "Paid acquisition scaled faster than retention could support it; every new cohort paid back slower than the last.",
-    "fix": "Rebuilt the growth model around a retention-first flywheel, reallocating spend from acquisition to a first-90-days experience.",
-    "metric": "CAC payback: 14mo → 6mo",
+    "tab": "Case 02",
+    "title": "nfnfn",
+    "stamp": "Draft",
+    "peek": "mdm",
+    "pain": "",
+    "fix": "",
+    "metric": "",
     "attachments": [
       {
         "type": "pdf",
@@ -26,17 +26,5 @@
         "href": "https://example.com"
       }
     ]
-  },
-  {
-    "id": "case-1788169345687",
-    "no": "02",
-    "tab": "Case 02",
-    "title": "nfnfn",
-    "stamp": "Draft",
-    "peek": "mdm",
-    "pain": "",
-    "fix": "",
-    "metric": "",
-    "attachments": []
   }
 ]
