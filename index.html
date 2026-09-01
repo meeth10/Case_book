@@ -1,34 +1,1148 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="The Case File — strategy case library."><title>The Case File · Strategy Desk</title><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet"><style>:root{--bg:#11100e;--panel:#191713;--panel2:#211d17;--paper:#efe4c9;--muted:#9c927f;--gold:#d8af70;--gold2:#efca8e;--line:rgba(216,175,112,.18);--red:#ba4d34;--green:#7ea67a}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--paper);font:15px DM Sans,sans-serif}button,input,textarea,select{font:inherit}button{cursor:pointer}.top{position:sticky;top:0;z-index:20;background:#11100ee8;backdrop-filter:blur(15px);border-bottom:1px solid var(--line)}.topin{max-width:1200px;margin:auto;padding:14px 20px;display:flex;align-items:center;gap:18px}.brand{font:500 22px Fraunces,serif}.brand small{font:10px IBM Plex Mono;color:var(--muted);margin-left:8px;letter-spacing:.13em;text-transform:uppercase}.nav{display:flex;gap:4px}.nav button,.ghost{border:1px solid transparent;background:transparent;color:var(--muted);padding:9px 11px;border-radius:8px}.nav .active,.nav button:hover,.ghost:hover{background:var(--panel2);color:var(--paper)}.actions{margin-left:auto;display:flex;gap:8px}.primary{background:var(--gold2)!important;color:#231d15!important;border:1px solid var(--gold2)!important}main{max-width:1200px;margin:auto;padding:35px 20px 70px}.hero{padding:45px 0 28px}.eyebrow{font:10px IBM Plex Mono;letter-spacing:.18em;text-transform:uppercase;color:var(--gold2)}h1{font:500 clamp(44px,6vw,76px)/1.02 Fraunces,serif;max-width:11ch;margin:12px 0 14px}.lead{max-width:670px;color:var(--muted);font-size:17px;line-height:1.65}.toolbar{display:flex;gap:9px;align-items:center;flex-wrap:wrap;border-top:1px solid var(--line);padding:14px 0 18px}.search{flex:1;min-width:240px;background:var(--panel);border:1px solid var(--line);color:var(--paper);padding:11px 12px;border-radius:9px}.filter{background:var(--panel);border:1px solid var(--line);color:var(--paper);padding:10px;border-radius:9px}.count{margin-left:auto;color:var(--muted);font:10px IBM Plex Mono}.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}.card{background:linear-gradient(145deg,#cbb17e,#ad9160);color:#241d15;border-radius:12px;padding:18px;min-height:285px;display:flex;flex-direction:column;position:relative;box-shadow:0 24px 60px #0008}.stamp{position:absolute;right:14px;top:14px;border:1px solid #8d3827;color:#8d3827;padding:4px 6px;border-radius:5px;font:9px IBM Plex Mono;transform:rotate(5deg)}.meta{font:9px IBM Plex Mono;color:#6e5b37;letter-spacing:.08em;text-transform:uppercase;padding-right:65px}.card h2{font:500 25px/1.15 Fraunces,serif;margin:11px 0}.card p{color:#4b3f2d;line-height:1.55}.foot{margin-top:auto;display:flex;align-items:center;justify-content:space-between;gap:8px}.metric{font:10px IBM Plex Mono;color:#8d3827}.open{border:1px solid #241d1540;background:#fff3;color:#241d15;padding:8px 10px;border-radius:8px}.open:hover{background:#241d15;color:var(--paper)}.empty{padding:38px;text-align:center;border:1px dashed var(--line);border-radius:10px;color:var(--muted)}.detail{display:none;margin-top:20px;background:var(--paper);color:#241d15;border-radius:12px;overflow:hidden;box-shadow:0 25px 70px #0008}.detail.open{display:grid;grid-template-columns:1.15fr .85fr}.detailmain,.detailside{padding:28px}.detailside{background:#e4d6b6;border-left:1px solid #241d1525}.detail h2{font:500 36px/1.08 Fraunces,serif;margin:8px 0 18px}.detail h3{font:600 10px IBM Plex Mono;letter-spacing:.12em;text-transform:uppercase;color:#6b5b40;margin:21px 0 7px}.detail p{line-height:1.7}.close{float:right;border:0;background:transparent;font-size:25px;color:#655842}.files{display:flex;flex-direction:column;gap:7px}.filelink{display:flex;justify-content:space-between;gap:8px;padding:10px;border:1px solid #241d1525;border-radius:8px;color:#241d15;text-decoration:none}.method{padding-top:70px}.method h2{font:500 34px Fraunces,serif}.steps{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--line)}.step{padding:23px 18px;border-right:1px solid var(--line)}.step:last-child{border:0}.step b{font:10px IBM Plex Mono;color:var(--gold2)}.step h3{font:500 22px Fraunces,serif;margin:9px 0 7px}.step p{color:var(--muted);line-height:1.6}.studio{display:none}.studio.open{display:grid;grid-template-columns:270px 1fr;gap:15px}.studio-nav,.editor{background:var(--panel);border:1px solid var(--line);border-radius:12px}.studio-nav{padding:15px}.studio-nav h2{font:500 25px Fraunces,serif;margin:0 0 14px}.new{width:100%;border:1px solid var(--gold);background:var(--gold2);color:#231d15;padding:11px;border-radius:8px}.case-list{display:flex;flex-direction:column;gap:3px;margin-top:10px}.case-item{border:0;background:transparent;text-align:left;color:var(--muted);padding:10px;border-radius:8px}.case-item.sel,.case-item:hover{background:var(--panel2);color:var(--paper)}.editor{padding:22px}.editor-head{display:flex;align-items:center;justify-content:space-between;gap:10px;border-bottom:1px solid var(--line);padding-bottom:15px;margin-bottom:18px}.editor-actions{display:flex;gap:7px}.danger{border:1px solid #ba4d3480;background:transparent;color:#da7a61;padding:9px 10px;border-radius:8px}.fields{display:grid;grid-template-columns:1fr 1fr;gap:11px}.field{display:flex;flex-direction:column;gap:5px}.field.full{grid-column:1/-1}.field label{font:9px IBM Plex Mono;letter-spacing:.12em;text-transform:uppercase;color:var(--gold2)}.field input,.field textarea,.field select{background:#120f0c;border:1px solid var(--line);color:var(--paper);padding:10px;border-radius:8px}.field textarea{min-height:105px;resize:vertical}.drop{border:1px dashed var(--gold);padding:20px;text-align:center;color:var(--muted);border-radius:9px}.file-row{display:flex;justify-content:space-between;align-items:center;gap:10px;border-bottom:1px solid var(--line);padding:9px 0}.small{border:1px solid var(--line);background:transparent;color:var(--muted);padding:6px 8px;border-radius:6px}.status{min-height:20px;margin-top:10px;font:10px IBM Plex Mono;color:var(--muted)}.ok{color:var(--green)}.err{color:#d1735d}.modal-back{position:fixed;inset:0;background:#000b;display:none;align-items:center;justify-content:center;z-index:100}.modal-back.open{display:flex}.modal{width:min(430px,calc(100vw - 28px));background:var(--panel);border:1px solid var(--line);border-radius:13px;padding:24px}.modal h2{font:500 29px Fraunces,serif;margin:0 0 7px}.modal p{color:var(--muted);font-size:13px;line-height:1.55}.password-wrap{position:relative;margin:10px 0 12px}.password-wrap input{width:100%;height:48px;background:#100e0b!important;color:var(--paper)!important;border:1px solid var(--gold)!important;border-radius:9px!important;padding:12px 70px 12px 13px!important;outline:none!important;-webkit-text-fill-color:var(--paper)!important;caret-color:var(--gold2)!important;pointer-events:auto!important;user-select:text!important;position:relative!important;z-index:101!important}.password-wrap input::placeholder{color:#817863}.password-wrap input:focus{box-shadow:0 0 0 2px rgba(216,175,112,.13)}.toggle-pass{position:absolute;right:7px;top:7px;height:34px;border:1px solid var(--line);background:transparent;color:var(--muted);border-radius:7px;font:9px IBM Plex Mono;padding:0 8px;z-index:102}.modal-actions{display:flex;justify-content:flex-end;gap:8px}.modal-actions button{padding:10px 12px;border-radius:8px;border:1px solid var(--line);background:transparent;color:var(--paper)}.link-form{display:grid}@media(max-width:900px){.grid{grid-template-columns:1fr 1fr}.detail.open{grid-template-columns:1fr}.detailside{border-left:0;border-top:1px solid #241d1525}.studio.open{grid-template-columns:1fr}.fields{grid-template-columns:1fr}.step{border-right:0;border-bottom:1px solid var(--line)}.steps{grid-template-columns:1fr}}@media(max-width:600px){main{padding:20px 14px 55px}.topin{padding:12px 14px}.nav{display:none}.grid{grid-template-columns:1fr}.count{width:100%;margin-left:0}.brand small{display:none}}
-</style></head><body>
-<header class="top"><div class="topin"><div class="brand">The Case File<small>Strategy Desk</small></div><nav class="nav"><button id="navCases" class="active">Cases</button><button id="navMethod">Method</button></nav></div></header>
-<main>
-<section id="publicView"><div class="hero"><div class="eyebrow">Independent practice · working record</div><h1>Company analysis, without the theatre.</h1><p class="lead">A living library of cases: the constraint, the mechanism, the numbers, and the fix. Search it. Open it. Keep the working behind the conclusion.</p></div><div class="toolbar"><input class="search" id="search" placeholder="Search companies, industries, pain points…"/><select class="filter" id="statusFilter"><option value="all">All statuses</option><option>Reviewed</option><option>Closed</option><option>In Review</option><option>Draft</option></select><div class="count" id="caseCount">0 cases</div></div><section class="grid" id="grid"></section><section class="detail" id="detail"><div class="detailmain"><button class="close" id="closeDetail">×</button><div class="eyebrow" id="dTab"></div><h2 id="dTitle"></h2><p id="dPeek"></p><h3>Constraint</h3><p id="dPain"></p><h3>The fix</h3><p id="dFix"></p></div><aside class="detailside"><h3>Result</h3><p id="dMetric"></p><h3>Files</h3><div class="files" id="dFiles"></div></aside></section><section class="method" id="method"><div class="eyebrow">Method</div><h2>The same three moves, every time.</h2><div class="steps"><article class="step"><b>01</b><h3>Hypothesis</h3><p>State the constraint before pulling numbers, so the analysis has something concrete to prove or kill.</p></article><article class="step"><b>02</b><h3>Data</h3><p>Pull only the figures that bear on the hypothesis, with sources and assumptions beside them.</p></article><article class="step"><b>03</b><h3>Decision</h3><p>Translate the finding into a fix scaled to the business's resources and time horizon, with tradeoffs stated plainly.</p></article></div></section></section>
-<section class="studio" id="studio"><aside class="studio-nav"><div style="font:500 25px Fraunces,serif;margin-bottom:15px">Case Studio</div><button class="new" id="newCase">+ New case</button><div class="case-list" id="caseList"></div></aside><section class="editor" id="editor"><div class="empty">Select a case or create a new one.</div></section></section>
-</main>
-<div class="modal-back" id="loginModal"><div class="modal"><h2>Studio access</h2><p>Private workspace. Your password stays server-side; the browser receives only a secure session cookie.</p><div class="password-wrap"><input id="password" type="text" inputmode="text" autocomplete="current-password" autocapitalize="none" spellcheck="false" placeholder="Studio password" style="-webkit-text-security:disc"/><button type="button" class="toggle-pass" id="togglePassword" aria-label="Show password">SHOW</button></div><div class="modal-actions"><button id="cancelLogin">Cancel</button><button class="primary" id="doLogin">Enter studio</button></div><div class="status" id="loginStatus"></div></div></div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Case File · Strategy Desk</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Newsreader:ital,wght@0,400;0,500;0,600;1,400;1,500&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #14120e;
+    --bg-2: #1b1712;
+    --paper: #efe4c9;
+    --paper-2: #e6d8b3;
+    --folder: #cbb17e;
+    --folder-2: #b89a63;
+    --folder-shadow: #85703f;
+    --gold: #cda05e;
+    --gold-bright: #e7be7f;
+    --ink: #1b1712;
+    --ink-soft: #4a4232;
+    --muted: #a99d84;
+    --stamp: #93341f;
+    --ok: #5c8a5c;
+    --line: rgba(205,166,101,0.22);
+  }
+
+  *{ margin:0; padding:0; box-sizing:border-box; }
+  html{ scroll-behavior:smooth; }
+  body{
+    background: var(--bg);
+    color: var(--paper);
+    font-family: 'Newsreader', serif;
+    overflow-x: hidden;
+  }
+  ::selection{ background: var(--gold); color: var(--ink); }
+
+  #bg-canvas{ position: fixed; inset:0; width:100%; height:100%; z-index:0; pointer-events:none; }
+  .vignette{
+    position: fixed; inset:0; z-index:1; pointer-events:none;
+    background: radial-gradient(ellipse at 50% 30%, transparent 0%, transparent 40%, rgba(10,9,7,0.55) 100%);
+  }
+  .grain{
+    position: fixed; inset:0; z-index:2; pointer-events:none; opacity:0.05; mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  .wrap{ position:relative; z-index:3; }
+  .label{
+    font-family:'IBM Plex Mono', monospace; letter-spacing:0.18em; text-transform:uppercase;
+    font-size:0.68rem; color: var(--gold-bright);
+  }
+
+  nav{
+    position: fixed; top:0; left:0; right:0; z-index:20;
+    display:flex; align-items:center; justify-content:space-between;
+    padding: 1.6rem clamp(1.5rem, 6vw, 5rem);
+    background: linear-gradient(to bottom, rgba(20,18,14,0.9), transparent);
+  }
+  .brand{ display:flex; align-items:center; gap:0.7rem; }
+  .brand svg{ width:22px; height:22px; }
+  .brand span{ font-family:'Fraunces', serif; font-weight:600; font-size:1.05rem; letter-spacing:0.02em; }
+  .file-count{ display:flex; flex-direction:column; align-items:flex-end; line-height:1.3; }
+  .file-count b{ font-family:'Fraunces', serif; font-size:1rem; color:var(--paper); font-weight:500; }
+
+  .hero{ min-height: 100svh; display:flex; flex-direction:column; justify-content:center; padding: 0 clamp(1.5rem, 6vw, 5rem); position:relative; }
+  .hero .label{ opacity:0; animation: rise 0.9s ease forwards 0.2s; margin-bottom:1.6rem; }
+  .hero h1{ font-family:'Fraunces', serif; font-weight: 380; font-size: clamp(2.6rem, 6.4vw, 5.6rem); line-height: 1.04; letter-spacing: -0.01em; max-width: 16ch; }
+  .hero h1 em{ font-style: italic; font-weight:300; color: var(--gold-bright); }
+  .hero h1 .line{ display:block; overflow:hidden; padding-bottom:0.14em; margin-bottom:-0.14em; }
+  .hero h1 .line span{ display:block; opacity:0; transform: translateY(110%); animation: rise 0.9s cubic-bezier(.2,.8,.2,1) forwards; }
+  .hero h1 .line:nth-child(1) span{ animation-delay: 0.35s; }
+  .hero h1 .line:nth-child(2) span{ animation-delay: 0.48s; }
+  .hero h1 .line:nth-child(3) span{ animation-delay: 0.61s; }
+  .hero p.sub{ margin-top: 2rem; max-width: 46ch; font-size: 1.08rem; color: var(--muted); font-weight:400; line-height:1.65; opacity:0; animation: rise 0.9s ease forwards 0.85s; }
+
+  @keyframes rise{ to{ opacity:1; transform:none; } }
+
+  .rack-intro{ padding: 3rem clamp(1.5rem, 6vw, 5rem) 1rem; }
+  .rack-intro h2{ font-family:'Fraunces', serif; font-weight:400; font-size: clamp(1.6rem, 3vw, 2.2rem); max-width: 30ch; }
+  .rack-intro .label{ margin-bottom:1rem; }
+
+  #rack{ position:relative; padding: 3rem 0 5rem; cursor: grab; }
+  #rack.grabbing{ cursor: grabbing; }
+  .rack-track{ display:flex; align-items:flex-end; gap: 2.2rem; padding: 4rem clamp(1.5rem, 6vw, 5rem) 2rem; overflow-x: auto; scroll-snap-type: x proximity; scrollbar-width: none; }
+  .rack-track::-webkit-scrollbar{ display:none; }
+
+  .folder{ flex: 0 0 auto; width: min(78vw, 340px); scroll-snap-align: center; position: relative; transform: translateY(0) rotate(var(--tilt,0deg)); transition: transform 0.5s cubic-bezier(.2,.8,.2,1); }
+  .folder:nth-child(odd){ --tilt: -1.1deg; }
+  .folder:nth-child(even){ --tilt: 0.9deg; }
+  .folder.centered{ transform: translateY(-14px) rotate(0deg); }
+
+  .tab{ position:relative; width: 46%; min-width: 130px; background: var(--folder-2); border-radius: 8px 8px 0 0; padding: 0.55rem 1rem 0.7rem; font-family:'IBM Plex Mono', monospace; font-size: 0.66rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink); box-shadow: 0 -2px 0 rgba(0,0,0,0.08) inset; }
+
+  .folder-body{ background: var(--folder); border-radius: 3px 10px 10px 10px; padding: 2.2rem 1.6rem 1.8rem; min-height: 250px; box-shadow: 0 22px 40px -18px rgba(0,0,0,0.65), 0 2px 0 rgba(255,255,255,0.05) inset; position: relative; overflow: hidden; }
+  .folder-body::before{ content:''; position:absolute; left:0; right:0; top:0; height:5px; background: linear-gradient(to bottom, rgba(0,0,0,0.12), transparent); }
+
+  .case-no{ font-family:'IBM Plex Mono', monospace; font-size:0.68rem; letter-spacing:0.1em; color: var(--folder-shadow); }
+  .case-title{ font-family:'Fraunces', serif; font-weight:500; font-size:1.32rem; color: var(--ink); margin: 0.5rem 0 1.1rem; line-height:1.2; }
+
+  .stamp{ position:absolute; top: 1.6rem; right: 1.2rem; font-family:'IBM Plex Mono', monospace; font-size:0.6rem; letter-spacing:0.14em; color: var(--stamp); border: 1.4px solid var(--stamp); border-radius: 4px; padding: 0.28rem 0.5rem; transform: rotate(8deg); opacity:0.85; text-transform:uppercase; mix-blend-mode: multiply; }
+
+  .peek{ font-size: 0.92rem; color: var(--ink-soft); line-height:1.5; }
+
+  .expand-hint{ margin-top: 1.4rem; display:flex; align-items:center; gap:0.5rem; font-family:'IBM Plex Mono', monospace; font-size:0.64rem; letter-spacing:0.1em; text-transform:uppercase; color: var(--folder-shadow); }
+  .expand-hint::after{ content:'+'; font-size:0.9rem; line-height:1; display:inline-block; transition: transform 0.3s ease; }
+  .folder.open .expand-hint::after{ transform: rotate(45deg); }
+
+  .folder-contents{ max-height: 0; overflow:hidden; transition: max-height 0.55s cubic-bezier(.2,.8,.2,1), margin-top 0.55s ease, opacity 0.4s ease; opacity:0; }
+  .folder.open .folder-contents{ max-height: 420px; margin-top: 1.1rem; opacity:1; }
+  .folder-contents .divider{ height:1px; background: rgba(27,23,18,0.14); margin: 0.9rem 0; }
+  .folder-contents h4{ font-family:'IBM Plex Mono', monospace; font-size:0.62rem; letter-spacing:0.12em; text-transform:uppercase; color: var(--folder-shadow); margin-bottom: 0.4rem; }
+  .folder-contents p{ font-size: 0.9rem; color: var(--ink-soft); line-height:1.55; }
+  .folder-contents .metric{ display:inline-block; margin-top: 0.9rem; font-family:'Fraunces', serif; font-style:italic; font-size:1rem; color: var(--stamp); }
+  .attachments{ display:flex; flex-wrap:wrap; gap:0.5rem; margin-top:1.1rem; }
+  .attachments a{
+    display:inline-flex; align-items:center; gap:0.4rem;
+    font-family:'IBM Plex Mono', monospace; font-size:0.68rem; letter-spacing:0.04em;
+    color: var(--ink-soft); text-decoration:none; border:1px solid var(--folder-shadow);
+    border-radius: 30px; padding:0.32rem 0.7rem 0.32rem 0.55rem; background: rgba(255,255,255,0.18);
+    transition: background 0.25s ease, color 0.25s ease, border-color 0.25s ease;
+  }
+  .attachments a:hover{ background: var(--ink); color: var(--paper); border-color: var(--ink); }
+  .folder.open .folder-body{ box-shadow: 0 30px 55px -18px rgba(0,0,0,0.75), 0 2px 0 rgba(255,255,255,0.06) inset; }
+
+  .approach{ padding: 6rem clamp(1.5rem, 6vw, 5rem) 7rem; position:relative; }
+  .approach .label{ margin-bottom:1rem; }
+  .approach h2{ font-family:'Fraunces', serif; font-weight:400; font-size: clamp(1.7rem, 3.4vw, 2.6rem); max-width: 24ch; margin-bottom: 3.4rem; }
+  .steps{ display:grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 0; border-top: 1px solid var(--line); }
+  .step{ padding: 2.2rem 1.8rem 2.2rem 1.8rem; border-right: 1px solid var(--line); opacity:0; transform: translateY(18px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .step:first-child{ padding-left: 0; }
+  .step:last-child{ border-right:none; padding-right:0; }
+  .steps.in-view .step{ opacity:1; transform:none; }
+  .steps.in-view .step:nth-child(1){ transition-delay: 0.05s; }
+  .steps.in-view .step:nth-child(2){ transition-delay: 0.2s; }
+  .steps.in-view .step:nth-child(3){ transition-delay: 0.35s; }
+  .step .num{ font-family:'IBM Plex Mono', monospace; font-size:0.7rem; color: var(--gold-bright); letter-spacing:0.1em; }
+  .step h3{ font-family:'Fraunces', serif; font-weight:500; font-size:1.35rem; margin: 0.8rem 0 0.7rem; }
+  .step p{ color: var(--muted); font-size:0.94rem; line-height:1.6; }
+
+  footer{ padding: 5rem clamp(1.5rem, 6vw, 5rem) 3rem; border-top: 1px solid var(--line); display:flex; flex-wrap:wrap; justify-content:space-between; align-items:flex-end; gap:2.5rem; opacity:0; transform: translateY(18px); transition: opacity 0.8s ease, transform 0.8s ease; }
+  footer.in-view{ opacity:1; transform:none; }
+  footer h2{ font-family:'Fraunces', serif; font-weight:380; font-size: clamp(1.9rem, 4.4vw, 3.2rem); max-width: 14ch; line-height:1.1; }
+  footer h2 em{ font-style:italic; color: var(--gold-bright); }
+  .foot-right{ display:flex; flex-direction:column; align-items:flex-start; gap:1rem; }
+  footer a.mail{ font-family:'IBM Plex Mono', monospace; font-size:0.85rem; color:var(--paper); text-decoration:none; border-bottom: 1px solid var(--gold); padding-bottom:0.2rem; transition: color 0.3s ease, border-color 0.3s ease; }
+  footer a.mail:hover{ color: var(--gold-bright); border-color: var(--gold-bright); }
+  .fine-print{ color: var(--muted); font-size:0.76rem; font-family:'IBM Plex Mono', monospace; letter-spacing:0.04em; }
+
+  /* ---------- admin back door (hidden, no public entry point) ---------- */
+  #admin{
+    position: fixed; top:0; right:0; height:100%; width: min(92vw, 400px); z-index:50;
+    background: var(--bg-2); border-left: 1px solid var(--line);
+    transform: translateX(100%); transition: transform 0.4s cubic-bezier(.2,.8,.2,1);
+    overflow-y: auto; padding: 1.6rem 1.4rem 3rem;
+    box-shadow: -30px 0 60px rgba(0,0,0,0.5);
+  }
+  #admin.open{ transform: translateX(0); }
+  #admin h3{ font-family:'Fraunces', serif; font-size:1.15rem; margin-bottom:0.2rem; }
+  #admin .admin-sub{ color:var(--muted); font-size:0.78rem; margin-bottom:1.4rem; }
+  #admin label{ display:block; font-family:'IBM Plex Mono', monospace; font-size:0.62rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--gold-bright); margin: 0.9rem 0 0.35rem; }
+  #admin input, #admin textarea{
+    width:100%; background: rgba(255,255,255,0.04); border:1px solid var(--line); border-radius:6px;
+    color: var(--paper); font-family:'Newsreader', serif; font-size:0.88rem; padding:0.55rem 0.7rem;
+    resize: vertical;
+  }
+  #admin input:focus, #admin textarea:focus{ outline:none; border-color: var(--gold); }
+  #admin .row{ display:flex; gap:0.7rem; margin-top:1rem; flex-wrap:wrap; }
+  #admin button{
+    font-family:'IBM Plex Mono', monospace; font-size:0.66rem; letter-spacing:0.06em; text-transform:uppercase;
+    padding:0.6rem 0.9rem; border-radius:6px; cursor:pointer; border:1px solid var(--gold);
+    background: transparent; color: var(--gold-bright); transition: background 0.25s ease, color 0.25s ease;
+  }
+  #admin button.primary{ background: var(--gold-bright); color: var(--ink); border-color: var(--gold-bright); }
+  #admin button:hover{ background: var(--gold-bright); color: var(--ink); }
+  #admin button:disabled{ opacity:0.45; cursor:default; }
+  #admin button:disabled:hover{ background:transparent; color: var(--gold-bright); }
+  #admin .existing{ margin-top:2.2rem; border-top:1px solid var(--line); padding-top:1.2rem; }
+  #admin .existing-item{ padding:0.6rem 0; border-bottom:1px dashed var(--line); }
+  #admin .existing-item .existing-head{ display:flex; justify-content:space-between; align-items:center; font-size:0.8rem; }
+  #admin .existing-item button{ padding:0.2rem 0.5rem; font-size:0.6rem; border-color: var(--stamp); color: var(--stamp); }
+  #admin .existing-item button:hover{ background: var(--stamp); color: var(--paper); }
+  #admin .existing-attachments{ display:flex; flex-direction:column; gap:0.3rem; margin:0.5rem 0 0 0.6rem; }
+  #admin .existing-attach-row{ display:flex; justify-content:space-between; align-items:center; gap:0.5rem; font-size:0.7rem; color:var(--muted); }
+  #admin .existing-attach-row span{ overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+  #admin .existing-attach-row button{ padding:0.1rem 0.4rem; font-size:0.56rem; border-color: var(--stamp); color: var(--stamp); flex:0 0 auto; }
+  #admin .existing-attach-row button:hover{ background: var(--stamp); color: var(--paper); }
+  #admin .toast{ margin-top:0.8rem; font-size:0.74rem; color: var(--gold-bright); font-family:'IBM Plex Mono', monospace; min-height:2.2em; line-height:1.4; white-space:pre-wrap; }
+  #admin .toast.err{ color: var(--stamp); }
+  #admin .toast.ok{ color: var(--ok); }
+  #admin .hint{ font-size:0.72rem; color:var(--muted); margin-top:1.6rem; line-height:1.5; }
+  #admin .attach-row{ display:flex; gap:0.4rem; margin-top:0.5rem; align-items:center; }
+  #admin .attach-row select{ background: rgba(255,255,255,0.04); border:1px solid var(--line); border-radius:6px; color:var(--paper); font-family:'IBM Plex Mono', monospace; font-size:0.72rem; padding:0.45rem 0.3rem; }
+  #admin .attach-row input{ flex:1; min-width:0; }
+  #admin .attach-row button{ padding:0.4rem 0.55rem; font-size:0.6rem; white-space:nowrap; }
+  #admin .attach-list{ display:flex; flex-direction:column; gap:0.4rem; margin-top:0.7rem; }
+  #admin .attach-chip{ display:flex; justify-content:space-between; align-items:center; gap:0.5rem; font-size:0.76rem; background:rgba(255,255,255,0.04); border:1px solid var(--line); border-radius:6px; padding:0.4rem 0.6rem; }
+  #admin .attach-chip span{ overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+  #admin .attach-chip button{ padding:0.15rem 0.5rem; font-size:0.58rem; border-color: var(--stamp); color: var(--stamp); flex:0 0 auto; }
+  #admin .attach-chip button:hover{ background: var(--stamp); color: var(--paper); }
+  #admin .gh-section{ margin-top:0.6rem; padding-top:1rem; border-top:1px solid var(--line); }
+  #admin .gh-section h4{ font-family:'IBM Plex Mono', monospace; font-size:0.7rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--paper); margin-bottom:0.2rem; }
+  #admin .gh-status{ font-family:'IBM Plex Mono', monospace; font-size:0.66rem; color:var(--muted); margin-top:0.3rem; white-space:pre-wrap; }
+  #admin .gh-status.connected{ color: var(--ok); }
+  #admin .gh-status.warn{ color: var(--stamp); }
+  #admin .pat-row{ display:flex; gap:0.5rem; align-items:center; }
+  #admin .pat-row input{ flex:1; }
+  #admin .pat-row button{ flex:0 0 auto; padding:0.55rem 0.6rem; font-size:0.6rem; }
+  #admin .badge{ display:inline-block; font-family:'IBM Plex Mono', monospace; font-size:0.6rem; letter-spacing:0.06em; text-transform:uppercase; padding:0.15rem 0.45rem; border-radius:4px; border:1px solid var(--ok); color:var(--ok); margin-left:0.5rem; }
+  #admin .spinner{ display:inline-block; width:0.7em; height:0.7em; border:2px solid rgba(231,190,127,0.3); border-top-color: var(--gold-bright); border-radius:50%; animation: spin 0.7s linear infinite; margin-right:0.4em; vertical-align: -0.05em; }
+  @keyframes spin{ to{ transform: rotate(360deg); } }
+
+  @media (max-width: 640px){
+    .steps{ grid-template-columns: 1fr; }
+    .step{ border-right:none; border-bottom:1px solid var(--line); }
+  }
+</style>
+</head>
+<body>
+
+<canvas id="bg-canvas"></canvas>
+<div class="vignette"></div>
+<div class="grain"></div>
+
+<div class="wrap">
+
+  <nav>
+    <div class="brand">
+      <svg viewBox="0 0 24 24" fill="none"><path d="M3 6.5C3 5.67 3.67 5 4.5 5H9l2 2h8.5c.83 0 1.5.67 1.5 1.5v9c0 .83-.67 1.5-1.5 1.5h-15C3.67 19 3 18.33 3 17.5v-11Z" stroke="#e7be7f" stroke-width="1.3"/></svg>
+      <span>The&nbsp;Case&nbsp;File</span>
+    </div>
+    <div class="file-count">
+      <b id="fileCountNum">00</b>
+      <span class="label" style="margin:0;">Active files</span>
+    </div>
+  </nav>
+
+  <section class="hero">
+    <span class="label">Strategy Desk · Independent Practice</span>
+    <h1>
+      <span class="line"><span>A working record of</span></span>
+      <span class="line"><span>company analysis:</span></span>
+      <span class="line"><span>reasoning shown <em>in full</em>.</span></span>
+    </h1>
+    <p class="sub">Each file sets out the constraint identified, the mechanism behind it, and the fix proposed, including the assumptions and the numbers rather than just the conclusion.</p>
+  </section>
+
+  <section class="rack-intro">
+    <span class="label">Case Record</span>
+    <h2><span id="rackCount">00</span> files on record. Scroll to review each.</h2>
+  </section>
+
+  <section id="rack">
+    <div class="rack-track" id="rackTrack"></div>
+  </section>
+
+  <section class="approach">
+    <span class="label">Method</span>
+    <h2>The same three moves, on every file in the record.</h2>
+    <div class="steps" id="steps">
+      <div class="step">
+        <span class="num">01</span>
+        <h3>Hypothesis</h3>
+        <p>State the constraint being tested before the numbers get pulled, so the analysis has something concrete to prove or disprove.</p>
+      </div>
+      <div class="step">
+        <span class="num">02</span>
+        <h3>Data</h3>
+        <p>Pull the figures that actually bear on the hypothesis, with sources and assumptions shown alongside them.</p>
+      </div>
+      <div class="step">
+        <span class="num">03</span>
+        <h3>Solutions</h3>
+        <p>Translate the finding into a fix scaled to the business's real resources and time horizon, with the tradeoffs stated plainly.</p>
+      </div>
+    </div>
+  </section>
+
+  <footer id="footer">
+    <h2>Available to review a <em>new case</em>.</h2>
+    <div class="foot-right">
+      <a class="mail" href="mailto:shouryast.1004@gmail.com">shouryast.1004@gmail.com →</a>
+      <span class="fine-print">Strategy Desk · Hyderabad · Est. 2026</span>
+    </div>
+  </footer>
+
+</div>
+
+<!-- ============ hidden back door: no public link points here ============ -->
+<div id="admin">
+  <button id="admin-close" style="float:right;">Close ×</button>
+  <h3>Studio: add a file</h3>
+  <p class="admin-sub">Not visible on the public site or linked anywhere. Visit this page's URL with <b>#studio</b> on the end to open it again.</p>
+
+  <div class="gh-section">
+    <h4>GitHub connection <span class="badge" id="pat-saved-badge" style="display:none;">Remembered</span></h4>
+    <p class="admin-sub" style="margin-bottom:0.8rem;">Your token is saved <b>only in this browser's local storage</b> so you don't have to re-enter it — it is never written into the page itself or committed anywhere. Anyone with access to this browser/device could read it from storage, so use a fine-grained token scoped to this one repo only, with "Contents: Read and write" permission (nothing broader).</p>
+    <label>Repo (owner/name)</label>
+    <input id="gh-repo" placeholder="yourname/case-file-site" value="meeth10/Case_book">
+    <label>Branch</label>
+    <input id="gh-branch" placeholder="main" value="main">
+    <label>Data file path</label>
+    <input id="gh-datapath" placeholder="data/cases.json" value="data/cases.json">
+    <label>Personal Access Token</label>
+    <div class="pat-row">
+      <input id="gh-pat" type="password" placeholder="github_pat_...">
+      <button id="gh-forget-pat" title="Clear the saved token from this browser">Forget</button>
+    </div>
+    <div class="row">
+      <button id="gh-load">Load from repo</button>
+      <button class="primary" id="gh-commit">Commit cases to repo</button>
+      <button id="gh-verify">Verify what's live</button>
+    </div>
+    <div class="gh-status" id="gh-status">Not connected — actions below stay local until you commit.</div>
+    <div class="toast" id="gh-toast"></div>
+
+    <label style="margin-top:1.2rem;">Page file to update (so visitors see it live, no PAT needed)</label>
+    <input id="gh-pagepath" placeholder="index.html" value="index.html">
+    <div class="row">
+      <button class="primary" id="gh-save-config">Save this connection into the page</button>
+    </div>
+    <p class="admin-sub" style="margin-top:0.5rem;">One-time step. This writes your repo/branch/data-path — never the PAT — into the file itself and commits it. After this, the public page auto-loads <code>data/cases.json</code> for every visitor, with no token involved.</p>
+  </div>
+
+  <label style="margin-top:1.4rem;">Tab label (shows on the folder tab)</label>
+  <input id="f-tab" placeholder="Case 05 / Industry">
+  <label>Case title</label>
+  <input id="f-title" placeholder="Company or category">
+  <label>Stamp</label>
+  <input id="f-stamp" placeholder="Reviewed / Closed / In Review">
+  <label>Peek line (shown closed)</label>
+  <textarea id="f-peek" rows="2" placeholder="One line on the pain point"></textarea>
+  <label>Pain point (full)</label>
+  <textarea id="f-pain" rows="3"></textarea>
+  <label>The fix</label>
+  <textarea id="f-fix" rows="3"></textarea>
+  <label>Metric / result</label>
+  <input id="f-metric" placeholder="e.g. Margin: +310bps">
+
+  <label>Attachments — link to an existing URL</label>
+  <div class="attach-row">
+    <select id="a-type">
+      <option value="pdf">PDF</option>
+      <option value="ppt">PPT</option>
+      <option value="url">Link</option>
+    </select>
+    <input id="a-label" placeholder="Label, e.g. Full report">
+    <input id="a-href" placeholder="https://... or files/case-05/report.pdf">
+    <button id="add-attachment">+ Link</button>
+  </div>
+
+  <label>Attachments — upload a file straight to GitHub</label>
+  <div class="attach-row">
+    <input type="file" id="a-file" accept=".pdf,.ppt,.pptx,.doc,.docx,.xlsx">
+    <button id="upload-attachment" disabled>Upload</button>
+  </div>
+  <div class="attach-list" id="attach-list"></div>
+
+  <div class="row" style="margin-top:1.6rem;">
+    <button class="primary" id="add-case">Add to record</button>
+    <button id="copy-code">Copy data as code</button>
+  </div>
+  <div class="toast" id="toast"></div>
+
+  <div class="existing" id="existing-list"></div>
+
+  <p class="hint">
+    <b>With a GitHub connection:</b> "Commit cases to repo" pushes the current record straight to <code>data/cases.json</code> in your repo. Every visitor's page then loads that file live — no manual redeploy needed. Uploaded attachments go to <code>files/uploads/…</code> in the same repo and get a permanent <code>raw.githubusercontent.com</code> link, which you can hand directly to NotebookLM (Google LM) as a source.<br><br>
+    <b>Without one:</b> the site behaves as before — everything here previews live but resets on reload. "Copy data as code" gives you the CASES array to paste into this file by hand.<br><br>
+    <b>One-time setup:</b> click "Save this connection into the page" once — it wires your repo into the file that visitors actually load, so from then on the main screen shows everything you've committed (cases and uploaded files) without anyone needing a PAT.<br><br>
+    <b>"Verify what's live"</b> re-fetches <code>data/cases.json</code> straight from GitHub's raw CDN (bypassing your browser cache) and tells you exactly how many cases it finds and how old that copy might be. GitHub's raw CDN can take a minute or two to catch up after a commit — if verify shows the old count right after committing, wait ~60s and check again before assuming something's broken.
+  </p>
+</div>
+
 <script>
-const state={cases:[],filtered:[],selectedId:null,auth:false,dirty:false};
-const $=id=>document.getElementById(id);
-const esc=s=>String(s??'').replace(/[&<>"]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','\\':'&#92;','"':'&quot;'}[m]));
-const fileIcon=a=>a.type==='pdf'?'📄':a.type==='ppt'?'📊':a.type==='url'?'🔗':'📎';
-function normalize(c,i){return {id:c.id||`case-${String(i+1).padStart(3,'0')}`,tab:c.tab||`Case ${String(i+1).padStart(2,'0')}`,no:c.no||String(i+1).padStart(2,'0'),title:c.title||'Untitled case',stamp:c.stamp||'Draft',peek:c.peek||'',pain:c.pain||'',fix:c.fix||'',metric:c.metric||'',attachments:Array.isArray(c.attachments)?c.attachments:[]};}
-async function loadCases(){const r=await fetch('/api/cases',{cache:'no-store'});if(!r.ok)throw new Error((await r.json()).error||'Could not load cases.');state.cases=(await r.json()).cases.map(normalize);renderPublic();}
-function renderPublic(){const q=$('search').value.trim().toLowerCase(),st=$('statusFilter').value;state.filtered=state.cases.filter(c=>(st==='all'||c.stamp===st)&&(!q||[c.title,c.tab,c.peek,c.pain,c.fix,c.metric].join(' ').toLowerCase().includes(q)));$('caseCount').textContent=`${state.filtered.length} ${state.filtered.length===1?'case':'cases'}`;$('grid').innerHTML=state.filtered.map(c=>`<article class="card"><span class="stamp">${esc(c.stamp)}</span><div class="meta">${esc(c.tab)} · ${esc(c.no)}</div><h2>${esc(c.title)}</h2><p>${esc(c.peek)}</p><div class="foot"><span class="metric">${esc(c.metric)}</span><button class="open" data-open="${esc(c.id)}">Open case →</button></div></article>`).join('')||'<div class="empty" style="grid-column:1/-1">No matching cases.</div>';document.querySelectorAll('[data-open]').forEach(b=>b.onclick=()=>openDetail(b.dataset.open));}
-function openDetail(id){const c=state.cases.find(x=>x.id===id);if(!c)return;state.selectedId=id;$('dTab').textContent=c.tab;$('dTitle').textContent=c.title;$('dPeek').textContent=c.peek;$('dPain').textContent=c.pain;$('dFix').textContent=c.fix;$('dMetric').textContent=c.metric||'—';$('dFiles').innerHTML=c.attachments?.length?c.attachments.map(a=>`<a class="filelink" href="${esc(a.href)}" target="_blank" rel="noopener"><span>${fileIcon(a)} ${esc(a.label)}</span><span>↗</span></a>`).join(''):'<span style="color:#6d6250;font-size:13px">No files attached.</span>';$('detail').classList.add('open');$('detail').scrollIntoView({behavior:'smooth',block:'start'});}
-function setView(studio){$('publicView').style.display=studio?'none':'block';$('studio').classList.toggle('open',studio);$('navCases').classList.toggle('active',!studio);$('navStudio')?.classList.toggle('active',studio);}
-async function checkAuth(){try{const r=await fetch('/api/auth');state.auth=(await r.json()).authenticated}catch{state.auth=false}}
-function requireStudio(){if(!state.auth){$('loginModal').classList.add('open');$('loginStatus').textContent='';setTimeout(()=>$('password').focus(),50);return false}setView(true);renderStudio();return true;}
-function newCase(){if(!requireStudio())return;const n=state.cases.length+1;const c=normalize({id:`case-${Date.now()}`,no:String(n).padStart(2,'0'),tab:`Case ${String(n).padStart(2,'0')}`,title:'',stamp:'Draft',peek:'',pain:'',fix:'',metric:'',attachments:[]},n-1);state.cases.push(c);state.selectedId=c.id;state.dirty=true;renderStudio();}
-function renderStudio(){if(!state.auth)return;const list=$('caseList');list.innerHTML=state.cases.map(c=>`<button class="case-item ${state.selectedId===c.id?'sel':''}" data-sel="${esc(c.id)}">${esc(c.title||'Untitled')}<div style="font:9px IBM Plex Mono;margin-top:4px;opacity:.65">${esc(c.stamp)}</div></button>`).join('');list.querySelectorAll('[data-sel]').forEach(b=>b.onclick=()=>{if(state.dirty&&!confirm('Discard unsaved changes?'))return;state.dirty=false;state.selectedId=b.dataset.sel;renderStudio()});const c=state.cases.find(x=>x.id===state.selectedId);if(!c){$('editor').innerHTML='<div class="empty">Select a case or create a new one.</div>';return}$('editor').innerHTML=`<div class="editor-head"><div><div class="eyebrow">Editing case</div><div style="font:500 30px Fraunces,serif;margin-top:5px">${esc(c.title||'Untitled case')}</div></div><div class="editor-actions"><button class="danger" id="deleteCase">Delete case</button><button class="primary" id="saveCase">Save changes</button></div></div><div class="fields"><div class="field"><label>Tab label</label><input id="eTab" value="${esc(c.tab)}"></div><div class="field"><label>Status</label><select id="eStamp"><option>Draft</option><option>Reviewed</option><option>Closed</option><option>In Review</option></select></div><div class="field full"><label>Case title</label><input id="eTitle" value="${esc(c.title)}"></div><div class="field full"><label>Peek line</label><textarea id="ePeek">${esc(c.peek)}</textarea></div><div class="field full"><label>Constraint / pain point</label><textarea id="ePain">${esc(c.pain)}</textarea></div><div class="field full"><label>The fix</label><textarea id="eFix">${esc(c.fix)}</textarea></div><div class="field full"><label>Metric / result</label><input id="eMetric" value="${esc(c.metric)}"></div><div class="field full"><label>Files & links</label><div class="drop" id="drop">Drop PDF / PPT / DOCX / XLSX here or <label for="eFile" style="color:var(--gold2);cursor:pointer">browse</label><input id="eFile" type="file" hidden multiple accept=".pdf,.ppt,.pptx,.doc,.docx,.xlsx,.txt"></div><div style="display:flex;gap:8px;margin-top:9px;align-items:center;flex-wrap:wrap"><button type="button" class="small" id="addLink">+ Add link</button><span style="font:9px IBM Plex Mono;color:var(--muted)">Stored with this case.</span></div><div id="linkForm" style="display:none;grid-template-columns:1fr 1.4fr auto auto;gap:8px;margin-top:9px"><input id="linkLabel" placeholder="Link name"><input id="linkUrl" placeholder="https://..."><button type="button" class="small" id="saveLink">Add</button><button type="button" class="small" id="cancelLink">Cancel</button></div><div id="fileList"></div></div></div><div class="status" id="editorStatus"></div>`;if($('eStamp'))$('eStamp').value=c.stamp;renderEditorFiles();['eTab','eStamp','eTitle','ePeek','ePain','eFix','eMetric'].forEach(id=>$(id).addEventListener('input',markDirty));$('saveCase').onclick=saveCases;$('deleteCase').onclick=deleteCase;$('eFile').addEventListener('change',e=>Array.from(e.target.files).forEach(uploadFile));const drop=$('drop');['dragenter','dragover'].forEach(ev=>drop.addEventListener(ev,e=>{e.preventDefault();drop.style.background='rgba(216,175,112,.08)'}));['dragleave','drop'].forEach(ev=>drop.addEventListener(ev,e=>{e.preventDefault();drop.style.background=''}));drop.addEventListener('drop',e=>Array.from(e.dataTransfer.files).forEach(uploadFile));$('addLink').onclick=()=>{$('linkForm').style.display='grid';$('linkLabel').focus()};$('cancelLink').onclick=()=>{$('linkForm').style.display='none'};$('saveLink').onclick=addLink;$('linkUrl').addEventListener('keydown',e=>{if(e.key==='Enter')addLink()});}
-function markDirty(){state.dirty=true;const s=$('editorStatus');if(s)s.textContent='Unsaved changes';}
-function renderEditorFiles(){const c=state.cases.find(x=>x.id===state.selectedId);$('fileList').innerHTML=(c.attachments||[]).map((a,i)=>`<div class="file-row"><div><div>${fileIcon(a)} ${esc(a.label)}</div><div style="font:9px IBM Plex Mono;color:var(--muted);margin-top:3px">${esc(a.type)} · <a href="${esc(a.href)}" target="_blank" style="color:var(--gold2)">open</a></div></div><button class="small" data-del-file="${i}">Delete</button></div>`).join('')||'<div style="color:var(--muted);font-size:13px;margin-top:8px">No files yet.</div>';document.querySelectorAll('[data-del-file]').forEach(b=>b.onclick=()=>deleteFile(Number(b.dataset.delFile)));}
-async function uploadFile(file){const c=state.cases.find(x=>x.id===state.selectedId);if(!c)return;const s=$('editorStatus');s.className='status';s.textContent=`Uploading ${file.name}…`;try{const {upload}=await import('https://esm.sh/@vercel/blob@2.8.0/client');const safeName=file.name.replace(/[^a-zA-Z0-9._-]+/g,'-');const blob=await upload(`cases/${c.id}/${safeName}`,file,{access:'public',handleUploadUrl:'/api/blob-upload',multipart:true,contentType:file.type||undefined,onUploadProgress:p=>{s.textContent=`Uploading ${file.name} · ${Math.round(p.percentage)}%`}});c.attachments.push({type:file.name.toLowerCase().endsWith('.pdf')?'pdf':(/\.pptx?$/.test(file.name.toLowerCase())?'ppt':'file'),label:file.name,href:blob.url});state.dirty=true;renderEditorFiles();s.textContent='Upload complete. Save the case.';}catch(e){s.textContent=e.message||'Upload failed.';s.className='status err';}}
-function addLink(){const c=state.cases.find(x=>x.id===state.selectedId);if(!c)return;const label=$('linkLabel').value.trim()||'External link';const url=$('linkUrl').value.trim();const s=$('editorStatus');if(!/^https?:\/\//i.test(url)){s.textContent='Enter a full URL beginning with http:// or https://.';s.className='status err';return;}c.attachments.push({type:'url',label,href:url});$('linkLabel').value='';$('linkUrl').value='';$('linkForm').style.display='none';state.dirty=true;renderEditorFiles();s.textContent='Link added. Save the case.';s.className='status ok';}
-async function deleteFile(index){const c=state.cases.find(x=>x.id===state.selectedId);if(!c)return;const a=c.attachments[index];if(!confirm(`Remove “${a.label}” from this case?`))return;const s=$('editorStatus');s.className='status';s.textContent='Removing attachment…';try{const r=await fetch('/api/files',{method:'DELETE',headers:{'Content-Type':'application/json'},body:JSON.stringify({url:a.href})});const d=await r.json();if(!r.ok&&r.status!==404)throw new Error(d.error||'Delete failed');c.attachments.splice(index,1);state.dirty=true;renderEditorFiles();s.textContent='Attachment removed. Save the case.';}catch(e){s.textContent=e.message||'Delete failed.';s.className='status err';}}
-function readEditorIntoCase(){const c=state.cases.find(x=>x.id===state.selectedId);c.tab=$('eTab').value.trim()||c.tab;c.stamp=$('eStamp').value;c.title=$('eTitle').value.trim();c.peek=$('ePeek').value.trim();c.pain=$('ePain').value.trim();c.fix=$('eFix').value.trim();c.metric=$('eMetric').value.trim();c.no=c.no||String(state.cases.indexOf(c)+1).padStart(2,'0');}
-async function saveCases(){const c=state.cases.find(x=>x.id===state.selectedId);if(!c)return;readEditorIntoCase();const s=$('editorStatus');if(!c.title){s.textContent='Title is required.';s.className='status err';return}s.textContent='Saving…';try{const r=await fetch('/api/cases',{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify({cases:state.cases})});const d=await r.json();if(!r.ok)throw new Error(d.error||'Save failed');state.cases=d.cases.map(normalize);state.dirty=false;s.textContent='Saved.';s.className='status ok';renderPublic();renderStudio();}catch(e){s.textContent=e.message||'Save failed.';s.className='status err';}}
-async function deleteCase(){const c=state.cases.find(x=>x.id===state.selectedId);if(!c)return;if(!confirm(`Delete “${c.title||'Untitled case'}” permanently?\\n\\nThis removes the case and all attached files.`))return;const s=$('editorStatus');s.className='status';s.textContent='Deleting case…';try{const r=await fetch('/api/delete-case',{method:'DELETE',headers:{'Content-Type':'application/json'},body:JSON.stringify({id:c.id})});const d=await r.json();if(!r.ok)throw new Error(d.error||'Delete failed');state.cases=state.cases.filter(x=>x.id!==c.id);state.selectedId=state.cases[0]?.id||null;state.dirty=false;renderPublic();renderStudio();if(d.orphanedFiles)s.textContent=`Case deleted. ${d.orphanedFiles} file(s) need cleanup.`;}catch(e){s.textContent=e.message||'Delete failed.';s.className='status err';}}
-async function login(){const p=$('password').value,s=$('loginStatus');s.className='status';s.textContent='Checking…';try{const r=await fetch('/api/auth',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({password:p})});const d=await r.json();if(!r.ok)throw new Error(d.error||'Login failed');state.auth=true;$('loginModal').classList.remove('open');$('password').value='';setView(true);await loadCases();renderStudio();}catch(e){s.textContent=e.message;s.className='status err';}}
-$('search').oninput=renderPublic;$('statusFilter').onchange=renderPublic;$('closeDetail').onclick=()=>$('detail').classList.remove('open');$('navCases').onclick=()=>setView(false);$('navMethod').onclick=()=>{setView(false);$('method').scrollIntoView({behavior:'smooth'})};$('newCase').onclick=newCase;$('cancelLogin').onclick=()=>$('loginModal').classList.remove('open');$('doLogin').onclick=login;$('password').addEventListener('keydown',e=>{if(e.key==='Enter')login()});$('password').addEventListener('input',()=>{if($('loginStatus').textContent)$('loginStatus').textContent=''});$('togglePassword').onclick=()=>{const input=$('password'),btn=$('togglePassword');const showing=input.dataset.showing==='1';input.dataset.showing=showing?'0':'1';input.style.webkitTextSecurity=showing?'disc':'none';btn.textContent=showing?'SHOW':'HIDE';btn.setAttribute('aria-label',showing?'Show password':'Hide password');input.focus();try{input.setSelectionRange(input.value.length,input.value.length)}catch{}};document.addEventListener('keydown',e=>{if((e.metaKey||e.ctrlKey)&&e.shiftKey&&e.key.toLowerCase()==='s'){e.preventDefault();requireStudio()}});
-(async()=>{await checkAuth();try{await loadCases()}catch(e){$('grid').innerHTML=`<div class="empty" style="grid-column:1/-1">${esc(e.message)}</div>`}if(location.hash==='#studio')requireStudio()})();
-</script></body></html>
+  // ---------- site-wide GitHub data source (edit once, commit, and every visitor's ----------
+  // ---------- page will load live case data from your repo instead of the hardcoded array) ----------
+  const SITE_CONFIG = {
+    githubOwner: 'meeth10',
+    githubRepo: 'Case_book',
+    githubBranch: 'main',
+    dataPath: 'data/cases.json'
+  };
+
+  // ---------- case data (fallback used until SITE_CONFIG is filled in, or if the fetch fails) ----------
+  let CASES = [
+    { tab:'Case 01 / Retail', no:'01', title:'Direct-to-Consumer Retail Brand', stamp:'Reviewed',
+      peek:'CAC had outpaced LTV for three straight quarters, growth was funded rather than earned.',
+      pain:'Paid acquisition scaled faster than retention could support it; every new cohort paid back slower than the last.',
+      fix:'Rebuilt the growth model around a retention-first flywheel, reallocating spend from acquisition to a first-90-days experience.',
+      metric:'CAC payback: 14mo → 6mo',
+      attachments:[
+        { type:'pdf', label:'Full report', href:'files/case-01/report.pdf' },
+        { type:'ppt', label:'Board deck', href:'files/case-01/deck.pptx' },
+        { type:'url', label:'Company site', href:'https://example.com' }
+      ] },
+    { tab:'Case 02 / Fintech', no:'02', title:'Neobank / Deposits App', stamp:'Closed',
+      peek:'Deposits were growing, but 70% of new users churned before their third month.',
+      pain:'Onboarding optimized for account creation, not for the moment a user actually felt the product\u2019s value.',
+      fix:'Redesigned onboarding around a single early activation moment, cutting time-to-value from nine days to under one.',
+      metric:'90-day retention: up 2.3\u00d7' },
+    { tab:'Case 03 / B2B SaaS', no:'03', title:'Mid-Market B2B SaaS', stamp:'In Review',
+      peek:'The sales cycle stretched to nine months as buying committees grew from two to six.',
+      pain:'Reps were re-explaining value to every new stakeholder instead of arming the champion to sell internally.',
+      fix:'Built a champion-enablement kit: a one-page internal pitch the buyer could forward without the rep in the room.',
+      metric:'Sales cycle: 9mo \u2192 5mo' },
+    { tab:'Case 04 / Manufacturing', no:'04', title:'Legacy Industrial Manufacturer', stamp:'Reviewed',
+      peek:'Margins compressed 400bps as private-label competitors undercut on price alone.',
+      pain:'Competing on price against players with structurally lower costs was a fight the business couldn\u2019t win.',
+      fix:'Repositioned around a premium service tier, with guaranteed lead times and on-site support that competitors couldn\u2019t match.',
+      metric:'Gross margin: +310bps' }
+  ];
+
+  const track = document.getElementById('rackTrack');
+  const rack = document.getElementById('rack');
+
+  function escapeHtml(s){
+    return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  }
+
+  const TYPE_ICON = { pdf:'📄', ppt:'📊', url:'🔗' };
+
+  function renderAttachments(list){
+    if(!list || !list.length) return '';
+    return '<div class="attachments">' + list.map(a => `
+      <a href="${escapeHtml(a.href)}" target="_blank" rel="noopener">${TYPE_ICON[a.type]||'📎'} ${escapeHtml(a.label)}</a>
+    `).join('') + '</div>';
+  }
+
+  function renderFolders(){
+    track.innerHTML = CASES.map((c, i) => `
+      <article class="folder" data-i="${i}">
+        <div class="tab">${escapeHtml(c.tab)}</div>
+        <div class="folder-body">
+          <span class="stamp">${escapeHtml(c.stamp)}</span>
+          <div class="case-no">FILE NO. ${escapeHtml(c.no)}</div>
+          <h3 class="case-title">${escapeHtml(c.title)}</h3>
+          <p class="peek">${escapeHtml(c.peek)}</p>
+          <div class="expand-hint">Read the file</div>
+          <div class="folder-contents">
+            <div class="divider"></div>
+            <h4>Pain Point</h4>
+            <p>${escapeHtml(c.pain)}</p>
+            <div class="divider"></div>
+            <h4>The Fix</h4>
+            <p>${escapeHtml(c.fix)}</p>
+            <span class="metric">${escapeHtml(c.metric)}</span>
+            ${renderAttachments(c.attachments)}
+          </div>
+        </div>
+      </article>
+    `).join('');
+
+    document.getElementById('fileCountNum').textContent = String(CASES.length).padStart(2,'0');
+    document.getElementById('rackCount').textContent = String(CASES.length).padStart(2,'0');
+
+    Array.from(track.querySelectorAll('.folder')).forEach(f => {
+      f.querySelector('.folder-body').addEventListener('click', () => {
+        const wasOpen = f.classList.contains('open');
+        track.querySelectorAll('.folder').forEach(o => o.classList.remove('open'));
+        if(!wasOpen) f.classList.add('open');
+      });
+    });
+
+    updateCentered();
+    renderExistingList();
+  }
+
+  // ---------- try loading the live data file from GitHub before first render ----------
+  async function loadInitialCases(){
+    if(!SITE_CONFIG.githubOwner || !SITE_CONFIG.githubRepo){ renderFolders(); return; }
+    try{
+      const url = `https://raw.githubusercontent.com/${SITE_CONFIG.githubOwner}/${SITE_CONFIG.githubRepo}/${SITE_CONFIG.githubBranch}/${SITE_CONFIG.dataPath}?_=${Date.now()}`;
+      const res = await fetch(url, { cache: 'no-store' });
+      if(res.ok){
+        const data = await res.json();
+        if(Array.isArray(data) && data.length) CASES = data;
+      }
+    }catch(e){ /* fall back to the hardcoded array above */ }
+    renderFolders();
+  }
+
+  // ---------- dust-mote background ----------
+  const canvas = document.getElementById('bg-canvas');
+  const ctx = canvas.getContext('2d');
+  let w, h, motes;
+  function resize(){ w = canvas.width = window.innerWidth; h = canvas.height = window.innerHeight; }
+  function makeMotes(){
+    const count = Math.min(70, Math.floor((w*h)/22000));
+    motes = Array.from({length: count}, () => ({
+      x: Math.random()*w, y: Math.random()*h, r: Math.random()*1.6 + 0.4,
+      vx: (Math.random()-0.5)*0.09, vy: (Math.random()-0.5)*0.09 - 0.03, a: Math.random()*0.35 + 0.08
+    }));
+  }
+  resize(); makeMotes();
+  window.addEventListener('resize', () => { resize(); makeMotes(); });
+  function tick(){
+    ctx.clearRect(0,0,w,h);
+    for(const m of motes){
+      m.x += m.vx; m.y += m.vy;
+      if(m.x < 0) m.x = w; if(m.x > w) m.x = 0;
+      if(m.y < 0) m.y = h; if(m.y > h) m.y = 0;
+      ctx.beginPath(); ctx.arc(m.x, m.y, m.r, 0, Math.PI*2);
+      ctx.fillStyle = `rgba(231,190,127,${m.a})`; ctx.fill();
+    }
+    requestAnimationFrame(tick);
+  }
+  tick();
+
+  // ---------- wheel -> horizontal scroll on rack ----------
+  rack.addEventListener('wheel', (e) => {
+    if(Math.abs(e.deltaY) <= Math.abs(e.deltaX)) return;
+    const max = track.scrollWidth - track.clientWidth;
+    const atStart = track.scrollLeft <= 1;
+    const atEnd = track.scrollLeft >= max - 1;
+    if((e.deltaY < 0 && atStart) || (e.deltaY > 0 && atEnd)) return;
+    e.preventDefault();
+    track.scrollLeft += e.deltaY * 1.15;
+  }, { passive:false });
+
+  let isDown = false, startX, scrollStart;
+  track.addEventListener('mousedown', (e) => { isDown = true; rack.classList.add('grabbing'); startX = e.pageX; scrollStart = track.scrollLeft; });
+  window.addEventListener('mouseup', () => { isDown = false; rack.classList.remove('grabbing'); });
+  window.addEventListener('mousemove', (e) => { if(!isDown) return; track.scrollLeft = scrollStart - (e.pageX - startX); });
+
+  function updateCentered(){
+    const rackRect = rack.getBoundingClientRect();
+    const center = rackRect.left + rackRect.width/2;
+    let closest = null, dist = Infinity;
+    track.querySelectorAll('.folder').forEach(f => {
+      const r = f.getBoundingClientRect();
+      const fc = r.left + r.width/2;
+      const d = Math.abs(fc - center);
+      if(d < dist){ dist = d; closest = f; }
+      f.classList.remove('centered');
+    });
+    if(closest) closest.classList.add('centered');
+  }
+  track.addEventListener('scroll', () => requestAnimationFrame(updateCentered));
+  window.addEventListener('resize', updateCentered);
+
+  // ---------- scroll reveal ----------
+  const revealTargets = [document.getElementById('steps'), document.getElementById('footer')];
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(en => { if(en.isIntersecting) en.target.classList.add('in-view'); });
+  }, { threshold: 0.25 });
+  revealTargets.forEach(t => io.observe(t));
+
+  // ---------- hidden back door ----------
+  const admin = document.getElementById('admin');
+
+  function checkHash(){
+    if(location.hash === '#studio') admin.classList.add('open');
+  }
+  window.addEventListener('hashchange', checkHash);
+  checkHash();
+
+  function closeAdmin(){
+    admin.classList.remove('open');
+    history.replaceState(null, '', location.pathname + location.search);
+  }
+  document.getElementById('admin-close').addEventListener('click', closeAdmin);
+  document.addEventListener('keydown', (e) => { if(e.key === 'Escape') closeAdmin(); });
+
+  const SECRET = 'editcase';
+  let buffer = '';
+  document.addEventListener('keydown', (e) => {
+    const tag = (e.target.tagName || '').toLowerCase();
+    if(tag === 'input' || tag === 'textarea') return;
+    buffer = (buffer + e.key.toLowerCase()).slice(-SECRET.length);
+    if(buffer === SECRET){ admin.classList.toggle('open'); buffer=''; }
+  });
+
+  function toast(msg, kind){
+    const t = document.getElementById('toast');
+    t.className = 'toast' + (kind ? ' '+kind : '');
+    t.textContent = msg;
+    if(kind !== 'err') setTimeout(() => { if(t.textContent === msg) t.textContent = ''; }, 4200);
+  }
+  function ghToast(msg, kind){
+    const t = document.getElementById('gh-toast');
+    t.className = 'toast' + (kind ? ' '+kind : '');
+    t.textContent = msg;
+    if(kind !== 'err') setTimeout(() => { if(t.textContent === msg) t.textContent = ''; }, 5200);
+  }
+
+  // Turn any thrown value / fetch failure into a readable string instead of "[object Object]"
+  function errText(e){
+    if(!e) return 'Unknown error';
+    if(e instanceof Error) return e.message;
+    if(typeof e === 'string') return e;
+    try{ return JSON.stringify(e); }catch(_){ return String(e); }
+  }
+
+  // ============ GitHub connection ============
+  // The PAT is persisted in this browser's localStorage so it only needs to be
+  // entered once. Everything else (repo/branch/path) is remembered the same way.
+  const LS_KEYS = { repo:'casebook_gh_repo', branch:'casebook_gh_branch', datapath:'casebook_gh_datapath', pagepath:'casebook_gh_pagepath', pat:'casebook_gh_pat' };
+
+  function loadSavedGhFields(){
+    try{
+      const repo = localStorage.getItem(LS_KEYS.repo);
+      const branch = localStorage.getItem(LS_KEYS.branch);
+      const datapath = localStorage.getItem(LS_KEYS.datapath);
+      const pagepath = localStorage.getItem(LS_KEYS.pagepath);
+      const pat = localStorage.getItem(LS_KEYS.pat);
+      if(repo) document.getElementById('gh-repo').value = repo;
+      if(branch) document.getElementById('gh-branch').value = branch;
+      if(datapath) document.getElementById('gh-datapath').value = datapath;
+      if(pagepath) document.getElementById('gh-pagepath').value = pagepath;
+      if(pat){
+        document.getElementById('gh-pat').value = pat;
+        document.getElementById('pat-saved-badge').style.display = 'inline-block';
+      }
+    }catch(e){ /* localStorage unavailable (private browsing etc) — fields just stay blank each time */ }
+  }
+
+  function persistGhFields(){
+    try{
+      localStorage.setItem(LS_KEYS.repo, document.getElementById('gh-repo').value.trim());
+      localStorage.setItem(LS_KEYS.branch, document.getElementById('gh-branch').value.trim());
+      localStorage.setItem(LS_KEYS.datapath, document.getElementById('gh-datapath').value.trim());
+      localStorage.setItem(LS_KEYS.pagepath, document.getElementById('gh-pagepath').value.trim());
+      const pat = document.getElementById('gh-pat').value.trim();
+      if(pat){
+        localStorage.setItem(LS_KEYS.pat, pat);
+        document.getElementById('pat-saved-badge').style.display = 'inline-block';
+      }
+    }catch(e){ /* ignore — storage may be unavailable */ }
+  }
+
+  document.getElementById('gh-forget-pat').addEventListener('click', () => {
+    try{ localStorage.removeItem(LS_KEYS.pat); }catch(e){}
+    document.getElementById('gh-pat').value = '';
+    document.getElementById('pat-saved-badge').style.display = 'none';
+    updateGhStatus();
+    ghToast('Token cleared from this browser.', 'ok');
+  });
+
+  function ghConfig(){
+    const repo = document.getElementById('gh-repo').value.trim();
+    const [owner, name] = repo.split('/');
+    return {
+      owner, name,
+      branch: document.getElementById('gh-branch').value.trim() || 'main',
+      dataPath: document.getElementById('gh-datapath').value.trim() || 'data/cases.json',
+      pat: document.getElementById('gh-pat').value.trim()
+    };
+  }
+
+  function ghReady(cfg){
+    return !!(cfg.owner && cfg.name && cfg.pat);
+  }
+
+  let ghVisibilityCheckToken = 0;
+
+  function updateGhStatus(){
+    const cfg = ghConfig();
+    const status = document.getElementById('gh-status');
+    const uploadBtn = document.getElementById('upload-attachment');
+    if(ghReady(cfg)){
+      status.textContent = `Ready to commit to ${cfg.owner}/${cfg.name} @ ${cfg.branch}`;
+      status.className = 'gh-status connected';
+      uploadBtn.disabled = false;
+      checkGhRepoVisibility(cfg);
+    } else {
+      status.textContent = 'Not connected — fill in repo + PAT to load/commit/upload.';
+      status.className = 'gh-status';
+      uploadBtn.disabled = true;
+    }
+  }
+
+  // Warns immediately if the typed repo is private, doesn't exist, or the PAT
+  // lacks write access — the exact failure modes that otherwise show up later as
+  // a confusing 403/404 in the middle of a commit.
+  async function checkGhRepoVisibility(cfg){
+    const myToken = ++ghVisibilityCheckToken;
+    const status = document.getElementById('gh-status');
+    try{
+      const res = await fetch(`https://api.github.com/repos/${cfg.owner}/${cfg.name}`, {
+        headers: cfg.pat ? { 'Authorization': `Bearer ${cfg.pat}`, 'Accept': 'application/vnd.github+json' } : { 'Accept': 'application/vnd.github+json' }
+      });
+      if(myToken !== ghVisibilityCheckToken) return; // a newer check superseded this one
+      if(res.status === 401){
+        status.textContent = `⚠ GitHub rejected this token (401). It may be expired, revoked, or mistyped — generate a new fine-grained PAT for this repo.`;
+        status.className = 'gh-status warn';
+        return;
+      }
+      if(res.status === 404){
+        status.textContent = `⚠ ${cfg.owner}/${cfg.name} not found (wrong name, or private and your PAT can't see it).`;
+        status.className = 'gh-status warn';
+        return;
+      }
+      if(!res.ok){
+        status.textContent = `⚠ GitHub API returned ${res.status} while checking the repo. It may still work — try Load/Commit.`;
+        status.className = 'gh-status warn';
+        return;
+      }
+      const data = await res.json();
+      if(myToken !== ghVisibilityCheckToken) return;
+      const perms = data.permissions || {};
+      if(data.private && !cfg.pat){
+        status.textContent = `⚠ ${cfg.owner}/${cfg.name} is PRIVATE — visitors without a token can't read data from it.`;
+        status.className = 'gh-status warn';
+      } else if(cfg.pat && perms.push === false){
+        status.textContent = `⚠ This token can read ${cfg.owner}/${cfg.name} but not write to it. Check the PAT's "Contents: Read and write" permission.`;
+        status.className = 'gh-status warn';
+      } else if(data.private){
+        status.textContent = `⚠ ${cfg.owner}/${cfg.name} is PRIVATE — visitors without a token can't read data from it. Make it public, or the main screen will keep showing the fallback cases.`;
+        status.className = 'gh-status warn';
+      } else {
+        status.textContent = `Ready to commit to ${cfg.owner}/${cfg.name} @ ${cfg.branch} (public — visitors can read it).`;
+        status.className = 'gh-status connected';
+      }
+    }catch(e){
+      if(myToken !== ghVisibilityCheckToken) return;
+      status.textContent = `⚠ Could not reach GitHub to verify the repo (${errText(e)}). Check your connection.`;
+      status.className = 'gh-status warn';
+    }
+  }
+
+  ['gh-repo','gh-branch','gh-datapath','gh-pagepath','gh-pat'].forEach(id => {
+    document.getElementById(id).addEventListener('input', () => { persistGhFields(); updateGhStatus(); });
+  });
+
+  function b64EncodeUnicode(str){
+    return btoa(unescape(encodeURIComponent(str)));
+  }
+
+  async function ghApi(path, cfg, options){
+    let res;
+    try{
+      res = await fetch(`https://api.github.com/repos/${cfg.owner}/${cfg.name}/${path}`, {
+        ...options,
+        cache: 'no-store', // GitHub's Contents API sets a short max-age on GET responses; without
+                            // this, the browser can hand back a stale cached SHA on retry, which
+                            // makes every retry fail with the exact same "does not match" error.
+        headers: {
+          'Authorization': `Bearer ${cfg.pat}`,
+          'Accept': 'application/vnd.github+json',
+          ...(options && options.headers ? options.headers : {})
+        }
+      });
+    }catch(networkErr){
+      throw new Error(`Network error reaching GitHub (${errText(networkErr)}). Check your connection and try again.`);
+    }
+    let body = null;
+    try{ body = await res.json(); }catch(e){ /* no body */ }
+    if(!res.ok){
+      const msg = (body && body.message) || `${res.status} ${res.statusText}`;
+      const suffix = res.status === 401 ? ' — token is invalid or expired.'
+        : res.status === 403 ? ' — token may lack write permission, or you hit a rate limit.'
+        : res.status === 404 ? ' — repo, branch, or file path not found.'
+        : res.status === 409 || res.status === 422 ? ' — the file changed since you loaded it; refreshing and retrying.'
+        : '';
+      throw new Error(`GitHub API ${res.status}: ${msg}${suffix}`);
+    }
+    return body;
+  }
+
+  async function ghGetFile(filePath, cfg){
+    try{
+      // Cache-busting query param as a second layer on top of cache:'no-store' —
+      // some browser extensions / corporate proxies cache GET requests regardless
+      // of fetch cache mode, and a varying URL defeats that too.
+      return await ghApi(`contents/${filePath}?ref=${cfg.branch}&_=${Date.now()}`, cfg, { method:'GET' });
+    }catch(e){
+      if(String(e.message).match(/404/)) return null;
+      throw e;
+    }
+  }
+
+  async function ghPutFile(filePath, base64Content, message, cfg){
+    async function attempt(triesLeft){
+      const existing = await ghGetFile(filePath, cfg);
+      const payload = {
+        message,
+        content: base64Content,
+        branch: cfg.branch
+      };
+      if(existing && existing.sha) payload.sha = existing.sha;
+      try{
+        return await ghApi(`contents/${filePath}`, cfg, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+      }catch(e){
+        // Stale sha — usually two commits landing close together (e.g. this file
+        // open in more than one tab). Refetch and retry a few times before giving up.
+        if(triesLeft > 0 && /409|422|does not match|sha/i.test(e.message)){
+          await new Promise(r => setTimeout(r, 400 * (4 - triesLeft)));
+          return attempt(triesLeft - 1);
+        }
+        if(/does not match|sha/i.test(e.message)){
+          throw new Error(e.message + ' Still failing after 3 fresh reads — this now points to a real concurrent edit (another tab, another browser, or someone else with the PAT) rather than a caching issue. Close other tabs editing this file, or click "Load from repo" to pull the latest version first.');
+        }
+        throw e;
+      }
+    }
+    return attempt(3);
+  }
+
+  async function ghDeleteFile(filePath, cfg, message){
+    async function attempt(triesLeft){
+      const existing = await ghGetFile(filePath, cfg);
+      if(!existing) return false; // nothing at that path — caller should know it wasn't found
+      try{
+        await ghApi(`contents/${filePath}`, cfg, {
+          method: 'DELETE',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ message, sha: existing.sha, branch: cfg.branch })
+        });
+        return true;
+      }catch(e){
+        // Same stale-sha race as ghPutFile can happen on delete — refetch the sha and retry.
+        if(triesLeft > 0 && /409|422|does not match|sha/i.test(e.message)){
+          await new Promise(r => setTimeout(r, 400 * (4 - triesLeft)));
+          return attempt(triesLeft - 1);
+        }
+        throw new Error(`Could not delete ${filePath}: ${errText(e)}`);
+      }
+    }
+    return attempt(3);
+  }
+
+  // An attachment counts as "ours to delete" only if its URL actually points into
+  // the connected repo's raw content — links to other sites are left alone.
+  function attachmentRepoPath(href, cfg){
+    if(!cfg.owner || !cfg.name) return null;
+    const prefix = `https://raw.githubusercontent.com/${cfg.owner}/${cfg.name}/${cfg.branch}/`;
+    return href && href.startsWith(prefix) ? href.slice(prefix.length) : null;
+  }
+
+  // Guards against committing something that would corrupt data.json for every
+  // visitor — every case must at least be a plain object with a title/tab, and
+  // attachments (if present) must be an array of {type,label,href} objects.
+  function validateCases(cases){
+    if(!Array.isArray(cases)) return 'Case data is not a list.';
+    for(let i=0;i<cases.length;i++){
+      const c = cases[i];
+      if(!c || typeof c !== 'object') return `Case #${i+1} is not a valid record.`;
+      if(!c.title && !c.tab) return `Case #${i+1} has no title or tab label.`;
+      if(c.attachments !== undefined){
+        if(!Array.isArray(c.attachments)) return `Case #${i+1}'s attachments must be a list.`;
+        for(const a of c.attachments){
+          if(!a || typeof a.href !== 'string' || typeof a.label !== 'string'){
+            return `Case #${i+1} has a malformed attachment.`;
+          }
+        }
+      }
+    }
+    return null; // valid
+  }
+
+  function setButtonsBusy(ids, busy){
+    ids.forEach(id => { document.getElementById(id).disabled = busy; });
+  }
+
+  document.getElementById('gh-load').addEventListener('click', async () => {
+    const cfg = ghConfig();
+    if(!ghReady(cfg)){ ghToast('Fill in repo + PAT first.', 'err'); return; }
+    setButtonsBusy(['gh-load','gh-commit','gh-save-config','gh-verify'], true);
+    ghToast('Loading…');
+    try{
+      const file = await ghGetFile(cfg.dataPath, cfg);
+      if(!file){ ghToast('No data file there yet at ' + cfg.dataPath + ' — commit once to create it.', 'err'); return; }
+      const json = decodeURIComponent(escape(atob(file.content.replace(/\n/g,''))));
+      let data;
+      try{ data = JSON.parse(json); }
+      catch(parseErr){ ghToast('The file at ' + cfg.dataPath + ' is not valid JSON right now (' + errText(parseErr) + '). Nothing was changed locally.', 'err'); return; }
+      const invalidReason = validateCases(data);
+      if(invalidReason){ ghToast('Loaded data looks malformed: ' + invalidReason + ' Nothing was changed locally.', 'err'); return; }
+      CASES = data;
+      renderFolders();
+      ghToast(`Loaded ${data.length} cases from ${cfg.dataPath}.`, 'ok');
+    }catch(e){ ghToast('Load failed: ' + errText(e), 'err'); }
+    finally{ setButtonsBusy(['gh-load','gh-commit','gh-save-config','gh-verify'], false); }
+  });
+
+  document.getElementById('gh-commit').addEventListener('click', async () => {
+    const cfg = ghConfig();
+    if(!ghReady(cfg)){ ghToast('Fill in repo + PAT first.', 'err'); return; }
+    const invalidReason = validateCases(CASES);
+    if(invalidReason){ ghToast('Refusing to commit — ' + invalidReason, 'err'); return; }
+    setButtonsBusy(['gh-load','gh-commit','gh-save-config','gh-verify'], true);
+    ghToast('Committing…');
+    try{
+      const content = b64EncodeUnicode(JSON.stringify(CASES, null, 2));
+      await ghPutFile(cfg.dataPath, content, `Update case data (${CASES.length} cases)`, cfg);
+      ghToast(`Committed ${CASES.length} cases to ${cfg.dataPath}. Click "Verify what's live" in ~30-60s to confirm visitors see it.`, 'ok');
+    }catch(e){ ghToast('Commit failed: ' + errText(e), 'err'); }
+    finally{ setButtonsBusy(['gh-load','gh-commit','gh-save-config','gh-verify'], false); }
+  });
+
+  document.getElementById('gh-verify').addEventListener('click', async () => {
+    const cfg = ghConfig();
+    if(!cfg.owner || !cfg.name){ ghToast('Fill in the repo first.', 'err'); return; }
+    setButtonsBusy(['gh-load','gh-commit','gh-save-config','gh-verify'], true);
+    ghToast('Fetching the public raw copy…');
+    try{
+      const url = `https://raw.githubusercontent.com/${cfg.owner}/${cfg.name}/${cfg.branch}/${cfg.dataPath}?_=${Date.now()}`;
+      const res = await fetch(url, { cache: 'no-store' });
+      if(!res.ok){
+        ghToast(`Nothing readable at that public URL yet (HTTP ${res.status}). If you just committed, GitHub's CDN can take a minute to catch up.`, 'err');
+        return;
+      }
+      const text = await res.text();
+      let data;
+      try{ data = JSON.parse(text); }
+      catch(e){ ghToast('That URL responded but is not valid JSON — the committed file may be corrupted.', 'err'); return; }
+      const localCount = CASES.length;
+      const liveCount = Array.isArray(data) ? data.length : 0;
+      if(liveCount === localCount){
+        ghToast(`Live and matching: ${liveCount} cases visible at the public URL, same as your local ${localCount}.`, 'ok');
+      } else {
+        ghToast(`Live shows ${liveCount} cases, your local view has ${localCount}. If you just committed, wait ~60s (GitHub's raw CDN) and check again — if it still doesn't match, click "Load from repo".`, 'err');
+      }
+    }catch(e){ ghToast('Verify failed: ' + errText(e), 'err'); }
+    finally{ setButtonsBusy(['gh-load','gh-commit','gh-save-config','gh-verify'], false); }
+  });
+
+  document.getElementById('gh-save-config').addEventListener('click', async () => {
+    const cfg = ghConfig();
+    if(!ghReady(cfg)){ ghToast('Fill in repo + PAT first.', 'err'); return; }
+    const pagePath = document.getElementById('gh-pagepath').value.trim() || 'index.html';
+    setButtonsBusy(['gh-load','gh-commit','gh-save-config','gh-verify'], true);
+    ghToast('Reading current page file…');
+    try{
+      const file = await ghGetFile(pagePath, cfg);
+      if(!file) throw new Error(`${pagePath} not found in this repo/branch yet — commit the page there first.`);
+      let html = decodeURIComponent(escape(atob(file.content.replace(/\n/g,''))));
+      const configRegex = /const SITE_CONFIG = \{[\s\S]*?\};/;
+      if(!configRegex.test(html)) throw new Error('Could not find SITE_CONFIG in that file — is it the right page?');
+      const newConfig =
+`const SITE_CONFIG = {
+    githubOwner: '${cfg.owner}',
+    githubRepo: '${cfg.name}',
+    githubBranch: '${cfg.branch}',
+    dataPath: '${cfg.dataPath}'
+  };`;
+      html = html.replace(configRegex, newConfig);
+      ghToast('Committing updated page…');
+      const content = b64EncodeUnicode(html);
+      await ghPutFile(pagePath, content, 'Wire SITE_CONFIG to live GitHub data source', cfg);
+      ghToast(`Done. ${pagePath} now auto-loads ${cfg.dataPath} for every visitor — no PAT needed.`, 'ok');
+    }catch(e){ ghToast('Save failed: ' + errText(e), 'err'); }
+    finally{ setButtonsBusy(['gh-load','gh-commit','gh-save-config','gh-verify'], false); }
+  });
+
+  // ---------- attachment builder (staged list for the case currently being added) ----------
+  let pendingAttachments = [];
+
+  function renderPendingAttachments(){
+    const list = document.getElementById('attach-list');
+    list.innerHTML = pendingAttachments.map((a,i) => `
+      <div class="attach-chip">
+        <span>${TYPE_ICON[a.type]||'📎'} ${escapeHtml(a.label)} — ${escapeHtml(a.href)}</span>
+        <button data-remove-attach="${i}">Remove</button>
+      </div>
+    `).join('');
+    list.querySelectorAll('button[data-remove-attach]').forEach(btn => {
+      btn.addEventListener('click', async () => {
+        const idx = Number(btn.dataset.removeAttach);
+        const attach = pendingAttachments[idx];
+        const cfg = ghConfig();
+        const filePath = attachmentRepoPath(attach.href, cfg);
+        if(filePath && ghReady(cfg)){
+          const ok = confirm(`This file (${filePath}) was already uploaded to GitHub. Delete it from the repo too?`);
+          if(ok){
+            btn.disabled = true;
+            toast('Deleting uploaded file…');
+            try{
+              const found = await ghDeleteFile(filePath, cfg, `Remove unused upload: ${attach.label}`);
+              toast(found ? 'Deleted from GitHub.' : `No file found at ${filePath} — nothing to delete there.`, found ? 'ok' : 'err');
+            }
+            catch(e){ toast('Could not delete: ' + errText(e), 'err'); return; }
+          }
+        }
+        pendingAttachments.splice(idx, 1);
+        renderPendingAttachments();
+      });
+    });
+  }
+
+  document.getElementById('add-attachment').addEventListener('click', () => {
+    const label = document.getElementById('a-label').value.trim();
+    const href = document.getElementById('a-href').value.trim();
+    if(!label || !href){ toast('Attachment needs a label and a link/path.', 'err'); return; }
+    pendingAttachments.push({ type: document.getElementById('a-type').value, label, href });
+    document.getElementById('a-label').value = '';
+    document.getElementById('a-href').value = '';
+    renderPendingAttachments();
+  });
+
+  function fileToBase64(file){
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = () => resolve(reader.result.split(',')[1]);
+      reader.onerror = () => reject(new Error('Could not read file.'));
+      reader.readAsDataURL(file);
+    });
+  }
+
+  function extToType(name){
+    const ext = (name.split('.').pop() || '').toLowerCase();
+    if(ext === 'pdf') return 'pdf';
+    if(['ppt','pptx'].includes(ext)) return 'ppt';
+    return 'url';
+  }
+
+  document.getElementById('upload-attachment').addEventListener('click', async () => {
+    const cfg = ghConfig();
+    if(!ghReady(cfg)){ toast('Connect GitHub above first.', 'err'); return; }
+    const input = document.getElementById('a-file');
+    const file = input.files[0];
+    if(!file){ toast('Choose a file to upload first.', 'err'); return; }
+    if(file.size > 20 * 1024 * 1024){ toast(`"${file.name}" is ${(file.size/1024/1024).toFixed(1)}MB — GitHub's Contents API rejects files over ~25MB (and base64 inflates it ~33% further). Use a smaller file or a link instead.`, 'err'); return; }
+    setButtonsBusy(['gh-load','gh-commit','gh-save-config','gh-verify','upload-attachment'], true);
+    toast('Uploading ' + file.name + '…');
+    try{
+      const base64 = await fileToBase64(file);
+      const safeName = file.name.replace(/[^a-zA-Z0-9.\-_]/g, '_');
+      const remotePath = `files/uploads/${Date.now()}-${safeName}`;
+      const result = await ghPutFile(remotePath, base64, `Upload attachment: ${file.name}`, cfg);
+      const url = (result && result.content && result.content.download_url) ||
+                  `https://raw.githubusercontent.com/${cfg.owner}/${cfg.name}/${cfg.branch}/${remotePath}`;
+      pendingAttachments.push({ type: extToType(file.name), label: file.name, href: url });
+      renderPendingAttachments();
+      input.value = '';
+      toast('Uploaded. Link ready — copy it into NotebookLM whenever you like.', 'ok');
+    }catch(e){ toast('Upload failed: ' + errText(e), 'err'); }
+    finally{ setButtonsBusy(['gh-load','gh-commit','gh-save-config','gh-verify','upload-attachment'], false); }
+  });
+
+  document.getElementById('add-case').addEventListener('click', () => {
+    const title = document.getElementById('f-title').value.trim();
+    if(!title){ toast('Give it at least a title.', 'err'); return; }
+    const next = {
+      tab: document.getElementById('f-tab').value.trim() || `Case ${String(CASES.length+1).padStart(2,'0')}`,
+      no: String(CASES.length+1).padStart(2,'0'),
+      title,
+      stamp: document.getElementById('f-stamp').value.trim() || 'In Review',
+      peek: document.getElementById('f-peek').value.trim(),
+      pain: document.getElementById('f-pain').value.trim(),
+      fix: document.getElementById('f-fix').value.trim(),
+      metric: document.getElementById('f-metric').value.trim(),
+      attachments: pendingAttachments.slice()
+    };
+    CASES.push(next);
+    renderFolders();
+    ['f-tab','f-title','f-stamp','f-peek','f-pain','f-fix','f-metric'].forEach(id => document.getElementById(id).value = '');
+    pendingAttachments = [];
+    renderPendingAttachments();
+    toast('Added locally. Click "Commit cases to repo" above to make it permanent.', 'ok');
+  });
+
+  document.getElementById('copy-code').addEventListener('click', () => {
+    const code = 'let CASES = ' + JSON.stringify(CASES, null, 2) + ';';
+    navigator.clipboard.writeText(code).then(() => toast('Copied. Paste over the CASES array in the file.', 'ok'));
+  });
+
+  function renderExistingList(){
+    const list = document.getElementById('existing-list');
+    list.innerHTML = '<label>In the record</label>' + CASES.map((c,i) => `
+      <div class="existing-item" data-case="${i}">
+        <div class="existing-head">
+          <span>${escapeHtml(c.title || c.tab)}</span>
+          <button data-remove-case="${i}">Remove case</button>
+        </div>
+        ${(c.attachments && c.attachments.length) ? `
+          <div class="existing-attachments">
+            ${c.attachments.map((a, ai) => `
+              <div class="existing-attach-row">
+                <span>${TYPE_ICON[a.type]||'📎'} ${escapeHtml(a.label)}</span>
+                <button data-remove-case="${i}" data-remove-attach="${ai}">Remove file</button>
+              </div>
+            `).join('')}
+          </div>` : ''}
+      </div>
+    `).join('');
+
+    list.querySelectorAll('button[data-remove-attach]').forEach(btn => {
+      btn.addEventListener('click', async () => {
+        const caseIdx = Number(btn.dataset.removeCase);
+        const attachIdx = Number(btn.dataset.removeAttach);
+        const targetCase = CASES[caseIdx];
+        const attach = targetCase.attachments[attachIdx];
+        const cfg = ghConfig();
+        const filePath = attachmentRepoPath(attach.href, cfg);
+
+        if(filePath && ghReady(cfg)){
+          const ok = confirm(`Delete "${attach.label}" (${filePath}) from GitHub too? Cancel to just detach it from this case.`);
+          if(ok){
+            btn.disabled = true;
+            toast('Deleting file from GitHub…');
+            try{
+              const found = await ghDeleteFile(filePath, cfg, `Remove attachment: ${attach.label}`);
+              toast(found ? 'Deleted from GitHub.' : `No file found at ${filePath} — nothing to delete there.`, found ? 'ok' : 'err');
+            }
+            catch(e){ toast('Could not delete from GitHub: ' + errText(e), 'err'); return; }
+          }
+        }
+
+        targetCase.attachments.splice(attachIdx, 1);
+        renderFolders();
+        toast('Removed. Click "Commit cases to repo" to make it permanent.', 'ok');
+      });
+    });
+
+    list.querySelectorAll('button[data-remove-case]:not([data-remove-attach])').forEach(btn => {
+      btn.addEventListener('click', async () => {
+        const idx = Number(btn.dataset.removeCase);
+        const removed = CASES[idx];
+        const cfg = ghConfig();
+        const filePaths = (removed.attachments || [])
+          .map(a => attachmentRepoPath(a.href, cfg))
+          .filter(Boolean);
+
+        if(filePaths.length && ghReady(cfg)){
+          const ok = confirm(`This case has ${filePaths.length} file(s) uploaded to GitHub (e.g. ${filePaths[0]}). Delete them from the repo too? Cancel to just remove the case and leave the files in place.`);
+          if(ok){
+            btn.disabled = true;
+            toast(`Deleting ${filePaths.length} file(s) from GitHub…`);
+            for(const p of filePaths){
+              try{
+                const found = await ghDeleteFile(p, cfg, `Remove attachment for deleted case: ${removed.title || removed.tab}`);
+                if(!found) toast(`No file found at ${p} — skipped.`, 'err');
+              }
+              catch(e){ toast(`Could not delete ${p}: ${errText(e)}`, 'err'); }
+            }
+          }
+        }
+
+        CASES.splice(idx, 1);
+        renderFolders();
+        toast('Removed. Click "Commit cases to repo" to make it permanent.', 'ok');
+      });
+    });
+  }
+
+  loadSavedGhFields();
+  updateGhStatus();
+  loadInitialCases();
+</script>
+
+</body>
+</html>
